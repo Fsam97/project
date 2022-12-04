@@ -1,0 +1,112 @@
+\documentclass[compress, 19pt, blue]{beamer}
+\hypersetup{pdfpagemode=FullScreen}
+\usetheme{AnnArbor}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{amsmath}
+\usepackage{mathptmx}
+\pgfdeclareimage[height=1.5cm]{FUTAlogo}{FUTAlogo}
+\logo{\pgfuseimage{FUTAlogo}}
+\title{\textsc{a proposal on one-third step method for the direct solution of seond order initial value problems in ordinary differential equations} }
+
+\author{\textsc{OLUFUNMILAYO, olushola timilehin \\ mts/16/0284\\Supervisor\\dr. e. a. areo}}
+
+\date{\today}
+\begin{document}
+%	\begin{frame}
+%		\titlepage
+%		\color{blue}
+%		\begin{center}
+%			{{\textbf{Tracing the DLBC core values.}}\\}
+%			{{\textbf{Why traditions?}}\\}
+%			{{\textbf{Why cementing our convictions \\to become future leaders without expecting \\to change the church?}}\\}
+%			{{\textbf{Romans 8:14}}\\}
+%		\end{center}
+%	\end{frame}
+	\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}
+	\frametitle{\textbf{ABSTRACT}}
+	\color{blue}
+	\begin{center}
+	The hybrid block method will be adopted in this project for the direct solution of second order ordinary differential equations. This method will be derived by the collocation and interpolation of power series approximate solution to give a continuous hybrid linear multistep method which will be implemented in the block method to derive the independent solution at selected grid points. The properties of the to-be derived scheme will be investigated to test the zero-stability, consistency and convergence of the scheme. The efficiency of the derived method will also be tested and will be compared to the existing methods.
+	\end{center}
+\end{frame}
+	
+	\begin{frame}
+		\frametitle{\textbf{INTRODUCTION}}
+		\color{blue}
+We use numerical methods for ordinary differential equations as a way for solutions to obtain numerical approximations to the solution of ordinary differential equations (ODEs). The study of numerical methods for ordinary differential equations has given us solutions to a variety of difficulties that we face in our daily lives. Some mathematical models, for example, can be solved analytically, which necessitates the use of numerical methods to obtain approximate solutions. Furthermore, advanced numerical approaches are required in weather broadcasting to make reliable weather predictions. Finding analytical answers to weather problems appears to be unattainable due to the fact that it is governed by sophisticated and complicated mathematical equations. When making a forecast for tomorrow's weather, rather than finding an exact solution, we use an approximation, and the accuracy of the estimate is now determined by the type of approximation used. In addition, spacecraft firms demand that the trajectory of a spacecraft be determined using numerical solutions of a system of ordinary equations. 
+\end{frame}
+\begin{frame}{DEFINITION OF TERMS}
+	\color{blue}
+\begin{enumerate}
+	\item Interpolation: The technique of estimating the value of the function for an intermediate value of the independent variable is known as \textsl{Interpolation}.
+	\item Collocation: This method for solving differential equations entails selecting a finite-dimensional space of a basis function, as well as a set of points in the domain (collocation points), and then selecting the solution that satisfies the given DE at the collocation points.
+	\item Zero Stability: If a minor change in the initial conditions creates a small change in the solution, the numerical scheme is stable. Numerical approaches for solving ODEs are susceptible to truncation errors at each step, necessitating the need to verify that the solution does not diverge over time. If the first polynomials are characteristic polynomials, $\alpha\leq1.$ 
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Aim and Objective}
+\noindent The aim of this study is to develop a one-third step method for the direct solution of second order initial value problems in ordinary differential equations. To achieve this, the following objectives was outlined:
+\begin{enumerate}
+	\item develop a continuos scheme that gives solution to second order ordinary differential equations.
+	\item  derive discrete scheme from the continuos scheme.
+	\item analyze the basic properties of the methods which includes consistency, zero stability and convergence.
+	\item  implement the derived method in block method and
+	\item  ascertain the usability of the method.
+\end{enumerate}
+\end{frame}
+	
+\begin{frame}{LITERATURE REVIEW}
+	\color{blue}
+\begin{itemize}
+	\item Awoyemi et al.\cite{Awoyemi} established the existence and uniqueness theorem (1). Scholars have discussed methods for reducing higher order ordinary differential equations to first order ordinary differential equation systems in order to increase the dimension of the resulting equation by the order of the differential equations, which invariably requires more human and computer effort. 
+	\item  Areo and Rufai \cite{Areo} developed a new fourth order continuous one-third hybrid block method for solving generic second order initial value problems of ordinary diiferential equations using a collocation and interpolation strategy.
+	\item The method of reduction, according to Vigo-Aguiar and Ramos \cite{Vigo-Aguiar} does not make use of extra information associated with certain ordinary differential equations, such as the oscillatory nature of the solution.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{\textbf{METHODOLOGY}}
+	In this paper, I proposed a hybrid block method is implemented as a simultaneous integrator for the solution of general second order ordinary differential equations. We consider approximate techniques for the solution of second order initial value problems of the form
+	\begin{equation}
+	y'¢¢ = f (x, y, y'¢), y(a) = ya , y'¢(a) = y'a¢ ,						 		
+	\end{equation}
+	where a is the initial point, ya and y'a are the solutions at the initial point a, f is assumed to be continuous within the interval of integration and satisfies the existence and uniqueness conditions. The proposed approximate solution is
+	\begin{equation}
+	y(x) = \sum_{j=0}^{r+s-1}a_{j}x^{j}								
+	\end{equation}
+	where r and s are the number of interpolation and collocation points, respectively, a¢j ’s are constant parameters to be determined, x is the polynomial basis function of degree j.
+%	\begin{center}
+%\begin{enumerate}
+%	\item Present the proposed model/modified model or the proposed research
+%	\item Method(s)/Technique(s) of solutions
+%	\item Development of the method(s)/solution(s)
+%\end{enumerate}	\end{center}
+\end{frame}
+
+%	\begin{frame}
+%	\frametitle{\textbf{RESULTS AND DISCUSSIONS}}
+%	\color{blue}
+%	\begin{center}
+%	Present and discuss your results/findings here.
+%	\end{center}
+%\end{frame}
+%
+%	\begin{frame}
+%	\frametitle{\textbf{CONCLUSION AND RECOMMENDATION}}
+%	\color{blue}
+%	\begin{center}
+%The conclusion should be based on the findings/results of the research. Necessary recommendation(s) should be made based on the findings/results	
+%	\end{center}
+%\end{frame}
+
+
+\thebibliography{}
+	\bibitem{Awoyemi}Awoyemi D. O. , Adebile E. A., Adesanya A. O. and Anake T. A., Modified block method for the direct solution of second order ordinary differential equations, Intern. J. Appl. Math. Comput. 3(3) (2011), 181-188.
+	\bibitem{Areo}Areo E. A., and Rufai M. A. A., (2016). A new uniform fourth order one-third step continuous block method for the direct solutions of ordinary differential equations. \textit{British Journal of Mathematics and Computer Science}, Vol. 15(4) 1-12.
+\bibitem{Vigo-Aguiar}Vigo-Aguiar J., and Ramos H., Variable stepsize implementation of multistep methods for y¢¢ = f (x, y, y¢), J. Comput. Appl. Math. 192 (2006), 114-131.
+\end{document} 
