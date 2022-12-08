@@ -1,0 +1,679 @@
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\geometry{a4paper, total = {180mm,245mm}, left=11mm, top=25mm}
+
+%title package
+\usepackage{titlesec}
+%\titleformat{\chapter}{\bfseries\centering\huge}{}{8pt}{}[]
+%\titlespacing{\chapter}{0pt}{0pt}{10pt}
+
+%\titleformat{\section}{\bfseries\large}{\thesection}{10pt}{}[]
+%\titlespacing{\section}{0pt}{0pt}{5pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+
+\usepackage{xfrac}
+\usepackage{enumitem}
+\linespread{1.5}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\Large \textsc{a proposal}\\
+		[5mm]
+		\Large \textsc{on}\\
+		[5mm]
+		\Large \textsc{one-third step method for the solution of seond order initial value problems in ordinary differential equations}\\
+		[5mm]
+		\Large \textsc{by}\\
+		[5mm]
+		\Large \textsc{olufunmilayo, olushola timilehin \\ mts/16/4212}\\
+		[5mm]
+		\Large \textsc{supervised by}\\
+		\Large \textsc{Prof. E. A. Areo}\\
+		[5mm]
+		\Large \textsc{submitted to}\\
+		\Large \textsc{the department of mathematical sciences} \\ 
+		\Large \textsc{federal university of technology, akure, ondo state, nigeria}\\
+		[5mm]
+		\Large \textsc{in partial fufilment of the requirements for the award of bachelor of technology (b.tech) in industrial mathematics}\\
+		[12mm]
+	\end{center}
+	
+	\begin{flushright}
+		\large \textsc{7th November, 2022}
+	\end{flushright}
+
+\end{titlepage}
+
+\newpage
+\pagenumbering{roman}
+
+
+% CERTIFICATION
+%\section*{CERTIFICATION}
+%\addcontentsline{toc}{section}{Certification}%
+%\noindent This is to certify that this project was carried out by OLUFUNMILAYO Olushola Timilehin OLATUNBOSUN Olaoluwa Olawale with the matriculation number MTS/16/4212 under the supervision of DR. E. A. AREO in partial fulfilment of the requirements for the award of Bachelor of Technology (B.tech) degree in Industrial Mathematics of The Federal University of Technology, Akure (FUTA). \\
+%\\ \\
+%
+%\noindent........................................... \hspace{10.7cm}
+%...........................
+%
+%Dr. E. A. Areo \hspace{13cm} Date
+%
+%\hspace{6mm}\textbf{Supervisor}\\
+%[2cm] 
+%
+%\noindent........................................... \hspace{10.7cm}
+%...........................
+%
+%Prof. B. T. Olabode \hspace{12.3cm} Date
+%
+%\noindent\hspace{4mm}\textbf{Head of Department}\\
+%[2cm] 
+%
+%\noindent........................................... \hspace{10.7cm}
+%...........................
+
+%\textbf{External Examiner} \hspace{12.3cm} Date
+
+
+% DEDICATION
+
+%\section*{DEDICATION}
+%\addcontentsline{toc}{section}{Dedications}
+%\noindent This project is dedicated to God Almighty, and to my parents, Mr. \&  Mrs. OLUFUNMILAYO.
+
+% AKNOWLEDGMENT
+%section{ACKNOWLEDGEMENTS}
+%\addcontentsline{toc}{section}{Acknowledgements}
+%\noindent My profound gratitude goes to God for His grace on me from start to finish of this project. Special thanks to my supervisor, Prof. E. A. Areo for his support, encouragement, patience and timely feedback during the running of this project. Also, I appreciate the effort of the Head of Department, Prof. B. T. Olabode and other lecturers in the Department of Mathematical Sciences, Federal University of Technology, Akure, Ondo State for their input throughout this B.Tech. programme. I also appreciate my colleagues for their efforts in any way to make this project a success.
+
+% ABSTRACT PAGE
+
+\section*{ABSTRACT}
+\addcontentsline{toc}{section}{Abstracts}
+\noindent The hybrid block method will be adopted in this project for the solution of second order ordinary differential equations. This method will be derived by the collocation and interpolation of power series approximate solution to give a continuous hybrid linear multistep method which will be implemented in the block method to derive the independent solution at selected grid points. The properties of the to-be derived scheme will be investigated to test the zero-stability, consistency and convergence of the scheme. The efficiency of the derived method will also be tested and will be compared to the existing methods.
+%%% TABLE OF CONTENTS
+%\tableofcontents
+
+%
+% BODY OF REPORT
+%
+%\cleardoublepage
+\pagenumbering{arabic}
+% CHAPTER ONE
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+
+
+\section{INTRODUCTION}
+\subsection{Background Information}
+\noindent We adopt numerical methods for ordinary differential equations as a way for the solutions to find the numerical approximations to the solution of ordinary differential equations (ODEs). Numerous issues we face in our daily lives have been solved by the study of numerical methods for ordinary differential equations. For instance, the analytical solution of some mathematical models necessitates the employment of numerical techniques to produce approximations of the solutions. Furthermore, accurate weather predictions in weather broadcasting depend on sophisticated numerical techniques. Analytically, finding the analytical solutions of a weather seem impossible because it is governed by complex and complicated mathematical equations. To make a prediction of what the weather would be tomorrow, we rather adopt an approximation instead of finding an exact solution, then the accuracy of the approximation now depends on the method of approximation used. Also, spacecraft companies require the use of numerical solutions of a system of ordinary equations to determine the trajectory of a spacecraft. Also car companies adopt the use of partial differential equations numerically to improve the crash safety of their vehicles by using computer simulations which can be gotten numerically.
+
+\subsection{Differential Equations}
+\noindent A  differential equation is one with the derivatives of one or more unknown functions (or dependent variables), with respect to one or more known (or independent variables). The unknown function in a differential equation represents a particular physical quantity, the corresponding derivatives denotes the rate of change while entire equation gives the relationship that exists between the two. The solution of a differential equation generalizes the equation that expresses the functional dependence of one variable (dependent variable) upon one or more other (independent variables). Conclusively, the solution of a differential equation produces a general function that can be utilized to predict the behavior of the original system, subject to some fixed constraints. 
+	
+	\subsubsection{Types of Differential Equations}
+	Differential equations are classified into two (2), namely: Ordinary Differential Equation (ODE) and Partial Differential Equation (PDE)
+
+	\subsubsection*{Ordinary Differential Equations}
+		
+	A differential equation is said to be an ordinary differential equation if the unknown function depends on only one independent variable. That is, a differential equation is called an ODE if it contains only ordinary derivatives (i.e. one dependent variable with respect to one independent variable). It has the general form: 
+\begin{equation}
+a_{0} (x)y+ a_{1} (x) y'+ a_{2} (x) y''+ a_{3} (x) y'''+...+ a_{n} (x) y^{n}=0
+\end{equation}
+
+Equation (1.1) can be written as 
+\begin{equation}
+F(x,y,y',y'',y''',...,y^{n})=0
+\end{equation}
+
+The following are examples of ordinary differential equations: 
+i. $	\frac{d^{2} y}{dx^{2} }+  \frac{dy}{dx}+3y=0$ 
+ii. $\frac{dy}{dx} = \frac{y^{2}}{1-xy} $  
+iii. $(\frac{d^{3} y}{dx^{3} })^{2} + \frac{d^{2} y}{dx^{2} } - 10\frac{dy}{dx} +8y = 0 $
+ 
+
+	\subsubsection*{Partial Differential Equation} 
+	A differential equation is called a partial differential equation if the unknown function depends on two or more independent variables. That is, a differential equation involving the derivatives of one or more dependent variables with respect to more than one independent variables. Furthermore, a partial differential equation is an equation that contains only partial derivatives. Some examples of partial differential equations are the wave, heat and laplace equations given below. \\
+\smallskip
+i. $\alpha^{2}\frac{\partial^{2}u(x,t)}{\partial x^{2}} =  \frac{\partial u(x,t)}{\partial t} $    [Heat Equation]
+ii. $\frac{\partial^{2}u(x,y)}{\partial x^{2}} + \frac{\partial^{2}u(x,t)}{\partial y^{2}} = 0 $   [Laplace Equation]  
+iii. $\alpha^{2}\frac{\partial^{2}u(x,t)}{\partial x^{2}} = \frac{\partial^{2}u(x,t)}{\partial t^{2}} $   [Wave Equation]
+
+	
+	\subsubsection{Classification of Differential Equations} 
+	Differential equations can be classified into order, degree, linearity and homogeneity. These classifications are explained respectively below.
+	\subsubsection*{Order} 
+	This is the order of the highest derivative in a differential equation. The ordinary differential equation
+	
+		\begin{equation}
+	 F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = 0
+		\end{equation} is an ODE with order n. 
+	
+	\medskip E.g. \begin{equation}
+	y^{\prime\prime} + 5y^{\prime\prime\prime} = \textit e^x
+	\end{equation}  is a third order ODE.
+	
+	\subsubsection*{Degree}
+	This is the power of the highest derivative in a differential equation. \\ E.g. The ordinary differential equation
+	
+	\begin{equation}
+	y^{\prime\prime} + 5y^{\prime\prime\prime} = \textit e^x  
+	\end{equation}
+	is of degree 1.
+	
+	\subsubsection*{Linearity} 
+	An nth-order ordinary differential equation 
+	\begin{equation}
+	F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = 0
+	\end{equation} is said to be linear if the function F is linear in $y, y^\prime, ... , y^n$. This means that an ODE of order n is linear when
+	 \begin{equation}
+	F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x)  
+	 \end{equation}
+	If $n = 1$, then
+		\begin{equation}
+		F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_1(x)y^\prime + a_0(x)y = g(x)
+		\end{equation} Otherwise, it is non-linear.
+	
+	\subsubsection*{Homogeneity}
+	 A differential equation is said to be homogeneous if the solution equals zero, else it is non-homogeneous, i.e. the ODE \medskip
+	 \begin{equation}
+	 F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x) 
+	 \end{equation}
+	 
+	 is homogeneous if g(x) = 0.
+	
+\subsubsection{Type of function}
+	 A differential equation is said to be of \textbf{explicit function} if the dependent variable is expressed solely in terms of the independent variable and constant. It is said to be of \textbf{implicit function} if the dependent variable is also expressed in terms of the dependent variable. E.g.
+	 
+		$y = \frac{1}{x}$  is an explicit function; and
+		$xy^\prime + y = 2$  is an implicit function
+	
+	\bigskip
+	\subsubsection*{Problems of a Differential Equation}\label{sec: Problems of ODE}
+	This is classified according to the solution and structure of the equation
+	\subsubsection*{Initial Value Problem (IVP)}
+	A differential equation generally has many solutions. An initial value problem is one in which an additional data or condition of a particular solution of interest is specified. i.e. a differential equation.
+	\begin{equation}
+	F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x)  
+	\end{equation}
+	
+	subject to
+	$y(x_0) = y_0$, $y'(x_0) = y_1$,…, $y_n(x_0) = y_n$
+	
+	where $y_0, y_1, \dots , y_n$ are arbitrarily specified real constants, is called an initial value problem. E.g.
+	
+	\begin{eqnarray}
+	y' =& 2y - 3x,\hspace{1mm} y(0) =& -3\\
+	y'=& 4 - 12t,\hspace{1mm} y(0) =& -1, y'(0) = 2
+	\end{eqnarray}
+	
+	\subsubsection*{Boundary Value Problem (BVP)}
+	A boundary value problem is one with solution specified at more than one point i.e. a differential equation\\
+	\begin{equation}
+	F(x,y,y',y'',\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} +\dots+ a_1(x)y^\prime + a_0(x)y = g(x)
+	\end{equation}  subject to
+	$y(x_0) = y_0$, $y(x_1) = y_1$, $y'(x_0) = y'_0$, $y'(x_1) = y'_1$,…, $y^n(x_0) = {y^n}_0$, $y^n(x_1) = {y^n}_1$. 
+	
+	where $y_0$, $y_1$, $y^\prime_0$, $y^\prime_1$, ..., ${y^n}_0$, ${y^n}_1$ are arbitrarily specified real constants, is called a boundary value problem. The independent variable chosen is usually the extreme value of its interval. E.g.
+	
+	\begin{eqnarray}
+	y' =& 2y -3x,& y(0) = -3,\hspace{1mm} y(2) = 10,\hspace{1mm} 0\leq x\leq 2\\
+	y'' =& 4 - 12t,& y(0) = -1,\hspace{1mm} y(1) =2,\hspace{1mm} y'(0) = 2,\hspace{1mm} y'(1) = 4,\hspace{1mm} 0\leq x\leq 1
+	\end{eqnarray}
+	
+	\smallskip
+	\subsubsection{Solution of Differential Equation}
+	A solution of a differential equation(DE) can be a particular solution or a general. 
+	A general solution is that which contains an arbitrary constant of solution which depends on the order of the DE. it is a family of all particular solutions. A particular solution is gotten if information from an I.V.P or B.V.P (See in page \pageref{sec: Problems of ODE}) is provided to solve the arbitrary constant of solution. Using the following methods, the solution of a DE can be obtained.
+	\subsubsection*{Analytical Methods}
+	These methods involve the analysis of differential equations using algebra. They vary depending on the order of the DE. Analytical methods do not follow any algorithm and provide exact solutions to DEs using exact theorems to present formula that can be used to present numerical solutions without the use of numerical methods, although not all DEs can be solved using these methods.Some of these methods are Separation of variables, appropriate solution, Laplace transforms, order reduction, variiation of parameters, power series, integration factor, etc.
+	\subsubsection*{Numerical Methods}
+	Unlike analytic methods, numerical methods provide approximate solutions using algorithms. They are sometimes called numerical integration. \\ Although many DEs from models of real-world problems and various subject areas can be solved using analytical methods, there many others that cannot, hence the need for numerical methods to provide approximate solutions.\\ Numerical methods involve elementary concepts such as collocation, interpolation, differentiation, integration,etc. Some of theses methods are:\\
+Single step methods-  Picard's method of successive approximation,Taylor's series method etc. \\
+Multi-step methods- Euler's method, modified Euler method Runge-Kutta method, Adams-Bashforth method,etc\\
+	\medskip
+	\subsection{Basic Concept and Principles}
+	\subsubsection{Power Series}
+	Power Series is an infinite series of the form
+	\begin{equation}
+	\sum_{j=0}^{\infty}a_jx^j=a_0+a_1(x-x_0)+a_2(x-x_0)^2+a_3(x-x_0)^3+\dots
+	\end{equation}
+
+	\noindent Where 
+
+	$x$ is a variable,
+
+	The centre of the series, $x_0$ is a constant; and
+	
+	The coefficients of the series, $a_j$, are constants.
+     In this context, we assume $x_0=0$, then the series takes the form;
+	\begin{equation}
+	Y=a_0+a_1x+a_2x^2+a_3x^3+\dots
+	\end{equation}
+	
+	\subsubsection{Taylor's Theorem}
+	The Taylor series of a real-vaalued function $f(x)$ is an infinite series of its derivatives about a single point $x_0$, such that
+	 \begin{equation}
+	 f(x)  = \sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n = f(x_0)+\frac{f'(x_0)}{1!}(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2 + \frac{f'''(x_0)}{3!}(x-x_0)^3 + \dots
+	 \end{equation}
+	Suppose the functin f(x) is a polynomial of degree k, then the Taylor polynomial of degree k is given as 
+	\begin{equation}
+	f(x)  = \sum_{n=0}^{k}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n = f(x_0)+\frac{f'(x_0)}{1!}(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2 + \frac{f'''(x_0)}{3!}(x-x_0)^3 + \dots
+	\end{equation}
+
+	\noindent Let function f(x) be differentiable $k+1$ times on an open interval containing $x_0$, then for every x in the interval, n
+	
+	\begin{equation}
+	f(x)=\sum_{n=0}^{k}\left[\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\right]+P_{k+1}(x) 
+	\end{equation}  
+	
+	\noindent where the error term \begin{equation}
+	P_{k+1}(x)=\frac{f^{k+1}(c)}{(k+1)!}(x-x_0)^{k+1}
+	\end{equation}
+	
+	\noindent for some c between x and $x_0$. This is known as \textit{Taylor's Theorem}.
+	
+	
+	\subsubsection{Linear Multi-step Method}
+	A linear multi-step method is a computational method used to determine the numerical solution of IVP ODEs (see page \pageref{sec: Problems of ODE}). It forms a linear relation between $y_{n+j}$ and $f_{n+j}$, $j = 0[1]k$ using more than one points, $x_i,x_{i+1}, x_{i+2}, \dots, x_{i+n}$ to predict a solution $y_{i+1}$. The general formular is given as 
+
+	\begin{equation}
+	y(x) = \sum_{j=0}^{k}\alpha_jy_{n+j}+h^n\sum_{j=0}^{k}\beta_jf_{n+j}(x)
+	\end{equation}
+	
+	\noindent where
+	
+	y(x) is the numerical solution of the IVP
+	
+	n is the order of ODE; and
+	
+	constants $\alpha \neq 0$ and $\beta \neq 0$ 
+
+	$$f_{n+j} = f(x_{n+j}, y_{n+j}, y'_{n+j}, \dots, {y_{n+j}}^{n-1}), \hspace{5mm} j=0{1}k$$
+
+	\medskip
+	\noindent A linear multi-syep method is said to be implicit if $\beta\neq0$, else it is explicit.
+	
+	\subsubsection{Characteristic Polynomial}
+	A characteristic polynomial is defined by
+	\begin{equation}
+	\prod_{}^{}(r,h)=\rho(r)-h\sigma(r)
+	\end{equation}
+
+	\noindent Where
+	$\rho(r) = \sum_{j=0}^{k} \alpha$, and  $\sigma(r) = \sum_{j=0}^{k} \beta$ are the first and second characteristic polynomials, respectively.
+
+	\subsubsection{Zero Stability}
+	A numerical scheme is stable if a small change in the initial conditions causes a small change in the solution. Numerical methods of solving ODEs are prone to truncation errors at each step , hence the need to ensure that there is no divergence in the solution overtime. If the first characteristic polynomials $\alpha\leq1.$ 
+	
+	\subsubsection{Interpolation}
+	In sciences and engineering, we usually obtain a number of data points by sampling or experimenting representing the values of a function for a limited value of independent variables. It is frequently required to estimate the value the function for an intermediate value of the independent variable; this process id called \textsl{Interpolation}. 
+	
+	In other words, interpolation is the construction of new data points within the range of a discrete set of given data points.
+	\subsubsection{Collocation}
+	This methood used to solve differential equations involves choosing a finite-dimensional space of a basis funnction, and a number of points in the domain (collocation pooints), and to select the solution that satisfies the given DE at the collocation points.
+
+\subsection{Aim and Objective}
+	The aim of this study is to develop a numerical scheme for the solution of a hybrid block method for the solution of second order ordinary differential equations. To achieve this, the following objectives was outlined:
+	\begin{enumerate}
+		\item develop a continuos scheme that gives solution to second order ordinary differential equations.
+		\item  derive discrete scheme from the continuos scheme.
+		\item analyze the basic properties of the methods which includes consistency, zero stability and convergence.
+		\item  implement the derived method in block method and
+		\item  ascertain the usability of the method.
+	\end{enumerate}
+
+% CHAPTER TWO
+\bigskip
+
+\bigskip
+
+\bigskip
+\bigskip
+\section{Literature Review}
+\noindent Researchers in the field of numerical analysis have worked over the years on the numerical solution of differential equations. Many numerical techniques have been developed which can solve different problems in differential equations. It is necessary that numerical methods, capable of solving differential equations, are developed because most differential equations arising from problems in engineering, physical sciences, managerial sciences, etc., do not have analytical solutions, and hence numerical approaches are highly needed to handle them. Some of the works done by researchers in this field of knowledge are given below.	
+ \noindent Awoyemi et al. [1] had given the theorem for the existence and uniqueness of (1). Scholars have discussed method of reduction of higher order ordinary differential equations to systems of first order ordinary differential equation to increase the dimension of resulting equation by the order of the differential equations, this invariably involves more human and computer efforts, Vigo-Aguiar and Ramos [2] reported that the method of reduction does not utilize additional information associated with specific ordinary differential equations such as the oscillatory nature of the solution. Bun and Vasil’Yev [3] also reported that another disadvantage of method of reduction is the fact that resulting system of first order equation can not be solved explicitly with respect to the derivatives of the highest order. Conclusively, method of reduction is not efficient and unstable for general purpose.
+\noindent Continuous linear multistep method for the direct solution of higher order ordinary differential equations has been proposed by scholars. Awoyemi [4], Kayode and Adeyeye [5], Adesanya et al. [6], Adee et al. [7], Yusuf and Onumanyi [8] proposed implicit continuous linear mutistep method which was implemented in predictor corrector mode, using Taylor series approximation to supply the starting values. This method was found to be costly to implement and the derived predictors are in reducing order of accuracy, which has an adverse effect on the results generated.
+\noindent Areo and Rufai (2016) applied the approach of collocation and interpolation to develop a new fourth order continuous one-third hybrid block method for the solutions of general second order initial value problems of ordinary diiferential equations. Three discrete schemes were derived from the continuos schemes. The discrete method was analyzed based on the properties of linear multi-step methods and the step is found to be zero-stable, consistent and convergent.There is an improved performances of the new method over the existing methods in the literature by solving four numerical examples and the approximate solutions obtained confirmed the superiority of the new developed schme when compared with some latest existing approaches.
+\noindent Kayode (2011) derived a class of one-point numerical hybrid methods characterized by higher order of accuracy to directly approximate the solution of the second order differential equation. In addition, the main predictor needed for the evaluation of the implicit methods at whatever hybrid points of collocation was discovered to be the same order with those of the methods at whatever hybrid point of collocation. It was found that the methods together with their corresponding predictors are zero-stable, consistent and convergent, and both are used to solve numerical examples to show their level of accuracy %\cite{kayode}.
+\noindent Block method which is more cost effective and does not require starting values has been proposed by scholars for the solution of initial value problems. Jator and Li [9] proposed a family of linear multistep method using methods of collocation and interpolation of power series approximate solution for the solution of two point boundary value problems. Adesanya et al. [10] proposed a block method through interpolation and collocation to solve second order initial value problem. This method gives better approximation and is cost effective.
+\noindent Obarhua and Kayode (2016) developed hybrid linear multistep methods for direct solution of general third order differential equations. In this study, the techniques of interpolation and collocation were used for the derivation of the scheme using the combination of power series and exponential function as the basis function. The derived method was examined to be zero-stable, consistent and convergent \cite{obarhua}.
+
+% CHAPTER THREE
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+
+\section{Methodology}
+\subsection{Statement of Problem}
+In this paper, we propose that a hybrid block method is implemented as a simultaneous integrator for the solution of general second order ordinary differential equations. We consider approximate techniques for the solution of second order initial value problems of the form
+	\begin{equation}
+		y'' = f (x, y, y'), y(\alpha) = y_1 , y'(\alpha) = y_2 ,						 		
+	\end{equation}
+	where a is the initial point, $y_1$ and $y_2$ are the solutions at the initial point a, f is assumed to be continuous within the interval of integration and satisfies the existence and uniqueness conditions.
+
+\subsection{Derivation of Method}
+\noindent The power series is the basis function used in the derivation of the numerical scheme. The approximate solution to (3.1) in the form
+	\begin{equation}
+	y(x) = \sum_{j=0}^{n+s-1}a_{j}x^{j}								
+	\end{equation}
+	where n and s are the number of interpolation and collocation points, respectively, $a_j$'s are constant parameters to be determined, $x^j$ is the polynomial basis function of degree $(n+s)-1$ on the intertval $[a,b]$. The first derivative gives
+	
+	\begin{equation}
+	y'(x)=\sum_{j=0}^{(n+s)-1} j a_{j}x^{j-1}
+	\end{equation}
+	
+	The second dervative gives
+	\begin{equation}
+	y''(x)=\sum_{j=0}^{(n+s)-1} j(j-1) a_{j}x^{j-2}
+	\end{equation}
+	
+\subsection{Scheme specification}
+\noindent The following diagram illustrates the formulated method, which includes the suggested point of collocation and interpolation based on their respective grid points and off-grid points.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{"proper scheme"}
+	\caption{Scheme Specification}
+	\label{fig:proper-scheme}
+\end{figure}
+
+\noindent where I is the interpolation point and C is the collocation point with E representing the evaluation point.
+ %Given n(collocation)=$0(\frac{1}{3})\frac{4}{3}.$
+%which implies 0 to be starting point with step of $\frac{1}{3}$ and end point of $\frac{4}{3}.$
+%Similarly, s(interpolation)=$\frac{1}{3},(\frac{2}{3}),(1)$\\
+The following system of equation was obtained for collocation and  interpolation equation;\\
+\noindent The collocation equation is given as:
+
+\begin{equation}
+\sum_{j=0}^{(n+s)-1} j(j-1)a_{j}x^{j-2}(X_{m+n})= f_{m+n}
+\end{equation}
+The interpolation equation is given as:
+\begin{equation}
+\sum_{j=0}^{(n+s)-1} a_{j}x^{j}(X_{m+s})= f_{m+s}
+\end{equation}
+the combination of the two equations gives another system of equation:
+since number of collocation n = 5 and number of interpolation = 2, thus
+
+\begin{equation}
+\sum_{j=0}^{(n+s)-1} a_{j}x^{j}= \sum_{j=0}^{(5+2)-1} a_{j}x^{j}=\sum_{j=0}^{6} a_{j}x^{j}=(y_{n})= a_{{0}}+a_{{1}} x_{{n}}+a_{{2}} {x_{{n}}}^{2}+a_{{3}} {
+	x_{{n}}}^{3}+a_{{4}} {x_{{n}}}^{4}+a_{{5}} {x_{{n}}}^{5}+a_{
+	{6}} {x_{{n}}}^{6}
+\end{equation}
+
+Therefore, the interpolation equation become;
+
+$y_{n}=a_{0}+a_{1}x_{n}+a_{2}x^{2}_{n}+a_{3}x^{3}_{n}+a_{4}x^{4}_{n}+a_{5}x^{5}_{n}+a_{6}x^{6}_{n}$
+\vspace{10pt}
+
+$y'_{n}=a_{1}+2a_{2}x^{2}_{n}+3a_{3}x^{2}_{n}+4a_{4}x^{3}_{n}+5a_{5}x^{4}_{n}+6a_{6}x^{5}_{n}$
+\vspace{10pt}
+
+
+\vspace{10pt}
+
+\noindent Likewise, equation (3.5) yields
+$$\sum_{j=0}^{(n+s)-1} j(j-1)a_{j}x^{j-2}=\sum_{j=0}^{6} j(j-1)a_{j}x^{j-2} \ \ \ = f_n = 2\,a_{{2}}+6\,a_{{3}} x_{{n}}+12\,a_{{4}} {x_{{n}}}^{2}+20\,
+a_{{5}} {x_{{n}}}^{3}+30\,a_{{6}} {x_{{n}}}^{4}
+$$
+
+\noindent Similarly, the colloctaion points ($0, \frac{1}{3},\frac{2}{3}, r, 1)$ yields
+
+\vspace{10pt}
+$f_n = 2\,a_{{2}}+6\,a_{{3}} x_{{n}}+12\,a_{{4}} {x_{{n}}}^{2}+20\,
+a_{{5}} {x_{{n}}}^{3}+30\,a_{{6}} {x_{{n}}}^{4}$
+
+\vspace{10pt}
+$f_{n+\frac{1}{3}} = 2\,a_{2}+6\,a_{3} x_{{n+\frac{1}{3}}}+12\,a_{{4}}{x^{2}_{{n+\frac{1}{3}}}}+20\,
+a_{{5}} {x^{3}_{{n+\frac{1}{3}}}}+30\,a_{{6}} {x^{4}_{{n+\frac{1}{3}}}}$
+
+
+\vspace{10pt}
+$f_{n+\frac{2}{3}} = 2\,a_{2}+6\,a_{3} x_{{n+\frac{2}{3}}}+12\,a_{{4}}{x^{2}_{{n+\frac{2}{3}}}}+20\,
+a_{{5}} {x^{3}_{{n+\frac{2}{3}}}}+30\,a_{{6}} {x^{4}_{{n+\frac{2}{3}}}}$
+
+\vspace{10pt}
+$f_{n+r} = 2\,a_{{2}}+6\,a_{{3}} x_{n+r}+12\,a_{{4}} {x^{2}_{n+r}}+20\,
+a_{{5}} {x^{3}_{n+r}}+30\,a_{{6}} {x^{4}_{n+r}}$
+
+
+\vspace{10pt}
+$f_{n+1} = 2\,a_{{2}}+6\,a_{{3}} x_{n+1}+12\,a_{{4}} {x^{2}_{n+1}}+20\,
+a_{{5}} {x^{3}_{n+1}}+30\,a_{{6}} {x^{4}_{n+1}}$
+
+
+\noindent From the collocaton and the interpolation equations, a system of equation can be written
+
+\begin{center}
+	$AX = B$
+\end{center}
+
+
+
+\vspace{20pt}
+
+
+$\begin{bmatrix}
+1 & x_{n} & x^{2}_{n} &  x^{3}_{n} & x^{4}_{n}& x^{5}_{n}& x^{6}_{n}\\
+0 & 1 & x^{2}_{n} &  x^{3}_{n} & x^{4}_{n} & x^{5}_{n} & x^{6}_{n}\\
+0&0 & 2 & 6x_n &  12x^2_{n} & 20x^{3}_{n} & 30 x^{4}_{n}\\
+0&0 & 2 & 6x_{n+\frac{1}{3}} &  12x^2_{n+\frac{1}{3}} & 20x^{3}_{n+\frac{1}{3}} & 30 x^{4}_{n+\frac{1}{3}}\\
+0&0 & 2 & 6x_{n+\frac{2}{3}} &  12x^2_{n+\frac{2}{3}} & 20x^{3}_{n+\frac{2}{3}} & 30 x^{4}_{n+\frac{2}{3}}\\
+0 & 0&2 & 6x_{n+r} &  12x_{n+r} & 20x^{2}_{n+r} & 30 x^{3}_{n+r}\\
+0 & 0&2 & 6x_{n+1} &  12x_{n+1} & 20x^{2}_{n+1} & 30 x^{3}_{n+1}
+\end{bmatrix}$
+$\begin{bmatrix} a_{0}\\ a_{1} \\ a_{2} \\ a_{3}\\ a_{4}\\ a_{5}\\ a_{6}\\ \end{bmatrix}$
+=$\begin{bmatrix} y_{n}\\ y'_{n} \\ f_{n}\\ f_{n+\frac{1}{3}}\\ f_{n+\frac{2}{3}}\\ f_{n+r} \\ f_{n+1}
+\end{bmatrix}$\\
+
+\noindent The gaussian elimination method shall be adopted to obtain the results
+
+$$a_{{0}}=y_{{n}}$$
+$$a_{{1}}={\it y'}_{{n}}$$
+$$a_{{2}}=\frac{1}{2}\,f_{{n}}$$
+$$a_{{3}}=-\frac{1}{12r \left( 9\,{r}^{3}-18\,{r}^{2}+11\,r-2\right) h}99\,{r}^{4}f_{{n}}-18\,{r}^{4}f_{{n+1}}-162\,{r}^{4}f_{{n+1/3}}+81\,{r}^{4}f_{{n+2/3}}-180\,{r}^{3}f_{{n}}+18\,{r}^{3}f_{{n+1}}+$$ $$270\,{r}^{3}f_{{n+1/3}}-108\,{r}^{3}f_{{n+2/3}}+85\,{r}^{2}f_{{n}}-4\,{r}^{2}f_{{n+1}}-108\,{r}^{2}f_{{n+1/3}}+27\,{r}^{2}f_{{n+2/3}}-4\,f_{{n}}+4\,f_{{n+r}}$$
+
+$$a_{{4}}=\frac{1}{24{r\left(9\,{r}^{3}-18\,{r}^{2}+11\,r-2 \right) {h}^{2}}}162\,{r}^{4}f_{{n}}-81\,{r}^{4}f_{{n+1}}-405\,{r}^{4}f_{{n+1/3}}+324\,{r}^{4}f_{{n+2/3}}-225\,{r}^{3}f_{{n}}+63\,{r}^{3}f_{{n+1}}+$$ $$513\,{r}^{3}f_{{n+1/3}}-351\,{r}^{3}f_{{n+2/3}}+85\,rf_{{n}}-4\,rf_{{n+1}}-108\,rf_{{n+1/3}}+27\,rf_{{n+2/3}}-22\,f_{{n}}+22\,f_{n+r}$$
+
+$$a_{{5}}=-\frac{1}{{40\,r \left( 9\,{r}^{3}-18\,{r}^{2}+11\,r-2 \right) {h}^{3}}}81\,{r}^{4}f_{{n}}-81\,{r}^{4}f_{{n+1}}-243\,{r}^{4}f_{{n+1/3}}+243\,{r}^{4}f_{{n+2/3}}-225\,{r}^{2}f_{{n}}+63\,{r}^{2}f_{{n+1}}+$$
+$$513\,{r}^{2}f_{{n+1/3}}-351\,{r}^{2}f_{{n+2/3}}+180\,rf_{{n}}-18\,rf_{{n+1}}-270\,rf_{{n+1/3}}+108\,rf_{{n+2/3}}-36\,f_{{n}}+36\,f_{{n+r}}$$
+	
+$$a_{{6}}=\frac{1}{20\,{h}^{4}r \left( 9\,{r}^{3}-18\,{r}^{2}+11\,r-2 \right)}27\,{r}^{3}f_{{n}}-27\,{r}^{3}f_{{n+1}}-81\,{r}^{3}f_{{n+1/3}}+81\,{r}^{3}f_{{n+2/3}}-54\,{r}^{2}f_{{n}}+27\,{r}^{2}f_{{n+1}}+$$ $$135\,{r}^{2}f_{{n+1/3}}-108\,{r}^{2}f_{{n+2/3}}+33\,rf_{{n}}-6\,rf_{{n+1}}-54\,rf_{{n+1/3}}+27\,rf_{{n+2/3}}-6\,f_{{n}}+6\,f_{{n+r}}$$
+
+\noindent Resolving equation (3.7), we obtain the continuous scheme
+
+$$y(x)=\left(\frac{3x^6}{20 h^4r}-\frac{9x^5(9r^4 - 25r^2 + 20r - 4)}{40r(9r^3 - 18r^2 + 11r - 2)h^3}+\frac{x^4(162r^4 - 225r^3 + 85r - 22)}{24r(9r^3 - 18r^2 + 11r - 2)h^2}-\frac{x^3(99r^4 - 180r^3 + 85r^2 - 4)}{12r(9r^3 - 18r^2 + 11r - 2)h}+\frac{x^2}{2}\right)f_n+$$
+$$\left(\frac{3x^6(-9r^3 + 9r^2 - 2r)}{20h^4r(9r^3 - 18r^2 + 11r - 2)}-\frac{9x^5(-9r^4 + 7r^2 - 2r)}{40r(9r^3 - 18r^2 + 11r - 2)h^3}+\frac{x^4(-81r^4 + 63r^3 - 4r)}{24r(9r^3 - 18r^2 + 11r - 2)h^2}-\right.$$ $$\left.\frac{x^3(-18r^4 + 18r^3 - 4r^2)}{12r(9r^3 - 18r^2 + 11r - 2)h}\right)f_{n + 1}+\left(\frac{3x^6(-27r^3 + 45r^2 - 18r)}{20h^4r(9r^3 - 18r^2 + 11r - 2)}-\frac{9x^5(-27r^4 + 57r^2 - 30r)}{40r(9r^3 - 18r^2 + 11r - 2)h^3}+\right.$$ $$\left.\frac{x^4(-405r^4 + 513r^3 - 108r)}{24r(9r^3 - 18r^2 + 11r - 2)h^2}-\frac{x^3(-162r^4 + 270r^3 - 108r^2)}{12r(9r^3 - 18r^2 + 11r - 2)h}\right)f_{n + 1/3}+\left(\frac{3x^6(27r^3 - 36r^2 + 9r)}{20h^4r(9r^3 - 18r^2 + 11r - 2)}-\right.$$ $$\left.\frac{9x^5(27r^4 - 39r^2 + 12r)}{40r(9r^3 - 18r^2 + 11r - 2)h^3}+\frac{x^4(324r^4 - 351r^3 + 27r)}{24r(9r^3 - 18r^2 + 11r - 2)h^2}-\frac{x^3(81r^4 - 108r^3 + 27r^2)}{12r(9r^3 - 18r^2 + 11r - 2)h}\right)f_{n+\frac{2}{3}}+$$
+$$\left(\frac{3x^6}{10h^4r(9r^3 - 18r^2 + 11r - 2)}-\frac{9x^5}{10r(9r^3 - 18r^2 + 11r - 2)h^3}+\frac{11x^4}{12r(9r^3 - 18r^2 + 11r - 2)h^2}-\right.$$ $$\left.\frac{x^3}{3r(9r^3 - 18r^2 + 11r - 2)h}\right)f_{n+r}+xy'_n+y_n$$
+
+\noindent To obtain the value or $r$,\\
+\noindent $y_{n+\frac{1}{3}}=y(x_{n+h})= -{\frac { \left(873\,{h}^{2}{r}^{4}-1809\,{h}^{2}{r}^{3}+1193\,{h}^{2}{r}^{2}-271\,{h}^{2}r+14\,{h}^{2} \right)y''(x_n)}{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}-{\frac { \left(72\,{h}^{2}{r}^{4}-81\,{h}^{2}{r}^{3}+25\,{h}^{2}{r}^{2}-2\,{h}^{2}r\right)y''\left(x_{n+h}\right) }{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}-{\frac { \left( 1026\,{h}^{2}{r}^{4}-1863\,{h}^{2}{r}^{3}+939\,{h}^{2}{r}^{2}-102\,{h}^{2}r \right)y''\left(x_n+\frac{1}{3}h\right)}{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}-{\frac{\left(-351\,{h}^{2}{r}^{4}+513\,{h}^{2}{r}^{3}-177\,{h}^{2}{r}^{2}+15\,{h}^{2}r \right) y''\left(x_n+\frac{2}{3}h\right)}{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}+{\frac {14{h}^{2}y''\left(x_n+rh\right) }{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}-y \left( x_{{n}
+}\right)-{\frac{\left(9720\,h{r}^{4}-19440\,h{r}^{3}+11880\,h{r}^{2}-2160\,rh\right) y'(x_n)}{29160\,{r}^{4}-58320\,{r}^{3}+35640\,{r}^{2}-6480\,r}}$
+
+\noindent Expanding the above equation in Taylor's series about h gives,
+\begin{equation}
+\frac{(441r - 53)D^{7}(y)(0)}{110224800}h^{(7)}+O(h^8)
+\end{equation}
+From (3.8), let $$441r - 53 =0$$
+
+Then, $$r=\frac{53}{441}$$
+
+Therefore, the continuous scheme becomes,
+$$y(x)=\left(\frac{1323x^6}{1060h^4}-\frac{1683x^5}{424h^3}+\frac{1935x^4}{424h^2}-\frac{1465x^3}{636h}+\frac{x^2}{2}\right)f_n+\left(\frac{1323x^6}{7760h^4}-\frac{2223x^5}{7760h^3}+\frac{453x^4}{3104h^2}-\frac{53x^3}{2328h}\right)f_{n+1}+$$ $$\left(\frac{3969x^6}{1880h^4}-\frac{5319x^5}{940h^3}+\frac{3441x^4}{752h^2}-\frac{159x^3}{188h}\right)f_{n+\frac{1}{3}}+\left(-\frac{3969x^6}{4820h^4}+\frac{17307x^5}{9640h^3}-\frac{1959x^4}{1928h^2}+\frac{159x^3}{964h}\right)f_{n+\frac{2}{3}}+xy'_n+y_n+$$ \begin{equation}
+\left(-\frac{12607619787x^6}{4658568560h^4}+\frac{37822859361x^5}{4658568560h^3}-\frac{15409313073x^4}{1863427424h^2}+\frac{1400846643x^3}{465856856h}\right)f_{n+\frac{53}{441}}
+\end{equation}
+
+\noindent Evaluating the continuous scheme in equation (3.9) yields the following scheme:\\
+
+$y_{{n+1/3}}={\frac { \left( 9027075304\,f_{{n}}+10205627\,f_{{n+1}}+
+		3605434710\,f_{{n+1/3}}-133378104\,f_{{n+2/3}}+29417779503\,f_{{n+{
+					\frac{53}{441}}}} \right) {h}^{2}}{754688106720}}+1/3\,h{\it y'}_{{n}}
++y_{{n}}
+$\\
+
+$y_{{n+2/3}}={\frac { \left( 1322857676\,f_{{n}}-31817543\,f_{{n+1}}+
+		4408294398\,f_{{n+1/3}}+579904800\,f_{{n+2/3}}+4202539929\,f_{{n+{
+					\frac{53}{441}}}} \right) {h}^{2}}{47168006670}}+2/3\,h{\it y'}_{{n}}+
+y_{{n}}
+$\\
+
+$y_{{n+r}}={\frac { \left( 3987486006448271216\,f_{{n}}-
+		15386256713541911\,f_{{n+1}}-634345990325783718\,f_{{n+1/3}}+
+		114227432940353568\,f_{{n+2/3}}+3606688742517052605\,f_{{n+{\frac{53}{
+						441}}}} \right) {h}^{2}}{977413447919361307680}}+{\frac {53\,h{\it y'}
+		_{{n}}}{441}}+y_{{n}}
+$\\
+
+$y_{{n+1}}={\frac { \left( 1089929248\,f_{{n}}+201110885\,f_{{n+1}}+
+		5107079682\,f_{{n+1/3}}+3375045936\,f_{{n+2/3}}+4202539929\,f_{{n+{
+					\frac{53}{441}}}} \right) {h}^{2}}{27951411360}}+h{\it y'}_{{n}}+y_{{n
+}}
+$\\
+
+\noindent Differentiaitng the equation (3.9), we obtain the continuous first derivative scheme\\
+
+${y'}_{{n+1/3}}={\frac{\left(1149260074\,f_{{n}}+23412909\,f_{{n+1}}+4143152464\,f_{{n+1/3}}-212148506\,f_{{n+2/3}}+8872028739\,f_{{n+{\frac{53}{441}}}}\right) h}{41927117040}}+{\it y'}_{{n}}$\\
+
+${y'}_{{n+2/3}}={\frac{\left(366972146\,f_{{n}}-29416219\,f_{{n+1}}+1965023866\,f_{{n+1/3}}+724397746\,f_{{n+2/3}}+466948881\,f_{{n+{\frac{53}{441}}}} \right) h}{5240889630}}+{\it y'}_{{n}}$\\
+
+${y'}_{n+r}={\frac{\left(17769905144496002\,f_{{n}}-90989295885503\,f_{{n+1}}-3863798585334768\,f_{{n+1/3}}+679920735846222\,f_{{n+2/3}}+29899112534628687\,f_{{n+{\frac{53}{441}}}}\right)h}{369392837460076080}}+{y'}_{{n}}$\\
+
+${y'}_{{n+1}}={\frac{\left(-63725702\,f_{{n}}+494072413\,f_{{n+1}}+654181968\,f_{{n+1/3}}+2173193238\,f_{{n+2/3}}+1400846643\,f_{{n+{\frac{53}{441}}}}\right)h}{4658568560}}+{ y'}_{{n}}$
+
+
+
+\subsection{Result Analysis}
+\noindent The analysis of this scheme is to establish the validity based on finding the basic properties of the scheme. These properties include;
+\begin{enumerate}
+	\item Order
+	\item Consistency
+	\item Zero stability
+	\item Convergence
+	\item Region of absolute stability
+\end{enumerate}
+
+
+
+
+\cleardoublepage
+
+\begin{thebibliography}{99}
+	\bibitem{Awoyemi}
+	D. O. Awoyemi, E. A. Adebile, A. O. Adesanya and T. A. Anake, Modified block method for the direct solution of second order ordinary differential equations, Intern. J. Appl. Math. Comput. 3(3) (2011), 181-188.
+	\bibitem{Vigo-Aguiar}
+	J. Vigo-Aguiar and H. Ramos, Variable stepsize implementation of multistep methods for y¢¢ = f (x, y, y¢), J. Comput. Appl. Math. 192 (2006), 114-131.
+	\bibitem{Areo}
+	Areo, E. A. and Rufai, M. A. A (2016). A new uniform fourth order one-third step continuous block method for the direct solutions of ordinary differential equations. \textit{British Journal of Mathematics \& Computer Science}, Vol. 15(4) 1-12.
+	\bibitem{Bun}
+	R. A. Bun and Y. D. Vasil’Yev, A numerical method method for solving differential
+equations of any order, Comp. Math. Phys. 32(3) (1992), 317-330.
+	\bibitem{Awoyem}
+	D. O. Awoyemi, Algorithmic collocation approach for direct solution of fourth-order initial value problems of ordinary differential equations, Intern. J. Comp. Math. 82(3) (2005), 321-329.
+	\bibitem{Areo}
+	Areo, E. A. and Rufai, M. A. A (2016). A new uniform fourth order one-third step continuous block method for the direct solutions of ordinary differential equations. \textit{British Journal of Mathematics \& Computer Science}, Vol. 15(4) 1-12.
+	\bibitem{fateme}
+	Fateme, G. and Stanford, S. (2019). A new approach for solving Bratu’s problem. \textit{Demonstratio Mathematica}, Vol. 52, pp. 336-346.
+	\bibitem{Kayode}
+	S. J. Kayode and A. O. Adeyeye, A 3-step hybrid method for the direct solution of second order initial value problems, Austral. J. Basic Appl. Sci. 5(12) (2011), 2121-2126.
+	\bibitem{Adesanya}
+	A. O. Adesanya, T. A. Anake and G. J. Oghonyon, Continuous implicit method for the solution of general second ordinary differential equations, J. Nig. Assoc. Math. Phy. 15 (2009), 71-78.
+	\bibitem{Adee}
+	S. O. Adee, P. Onumanyi, U. W. Serisena and Y. A. Yahaya, Note on starting the Numerov’s method more accurately by a hybrid formula of order four for initial value problems, J. Comput. Appl. Math. 175 (2005), 369-373.
+	\bibitem{Yusuf}
+	Y. Yusuf and P. Onumanyi, New multiple FDMs through multistep collocation for y¢¢ = f (x, y), Proceeding of Conference Organised by the National Mathematics Center, Abuja, Nigeria, 2005.
+	\bibitem{ascher}
+	Ascher, U. M., Matheij, R. and Russell, R. D. (1995). Numerical solution of boundary value problems for ordinary differential equations, SIAM, Philadelphia.
+	\bibitem{Jator}
+	S. N. Jator and J. Li, A self starting linear multistep method for a direct solution of general second order initial value problems, Intern. J. Comp. Math. 86(5) (2009) 817-836.
+	\bibitem{obarhua}
+	Obarhua, F. O. and Kayode, S. J. (2016). Symmetric hybrid linear multistep method for solving general third order differential equations. \textit{Open Access Library Journal}, Vol. 3, No. 2583.
+	\bibitem{Anake}
+	T. A. Anake, D. O. Awoyemi and A. O. Adesanya, One-step implicit hybrid block method for the direct solution of general second order ordinary differential equations, IAENG Intern. J. Appl. Math. 42(4) (2012), 224-228.
+	\bibitem{Adesanya}
+	A. O. Adesanya, M. R. Odekunle and M. O. Udo, Four steps continuous method for the solution of y¢¢ = f (x, y, y¢), Amer. J. Comput. Math. 3 (2013), 169-174.
+\end{thebibliography}
+
+
+
+\cleardoublepage
+\section{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\paragraph{Gaussian Elimination}
+\begin{verbatim}
+restart;
+Y := sum(a[j]*x^j, j = 0 .. 6);              
+Y := x a[6] + x a[5] + x  a[4] + x  a[3] + x  a[2] + x a[1]+ a[0]y[n + 0] = eval(Y, x = x[n]+0*h);
+y[n] = a[6] x[n]+a[5] x[n]+ a[4] x[n] + a[3] x[n] 2 + a[2] x[n] + a[1] x[n] + a[0]
+diff(Y(x), x); x  a[6] + 5 x  a[5] + 4 x  a[4] + 3 x  a[3]  xa[2] + a[1]yp[n + 0] = eval(diff(Y(x), x), x = x[n] + 0*h);
+yp[n] = 6 a[6] x[n]  + 5 a[5] x[n]  + 4 a[4] x[n]  + 3 a[3] x[n] + 2 a[2]x[n] + a[1]
+F := diff(Y, x, x);                      
+F := 30 x  a[6] + 20 x  a[5] + 12 x  a[4] + 6 x a[3] + 2 a[2]
+f[n + 0] = eval(F, x = x[n] + 0*h);
+f[n] = 30 a[6] x[n]  + 20 a[5] x[n]  + 12 a[4] x[n] + 6 a[3] x[n] + 2 a[2]
+f[n + 1/3] = eval(F, x = x[n] + 1/3*h);  
+f[n + -] = 30 |x[n] + - h|  a[6] + 20 |x[n] + - h|  a[5]+ 12 |x[n] + - h| a[4] + 6 |x[n] + - h| a[3] + 2 a[2]            
+f[n + 2/3] = eval(F, x = x[n] + 2/3*h);      
+f[n + -] = 30 |x[n] + - h|  a[6] + 20 |x[n] + - h|  a[5]+ 12 |x[n] + - h| a[4] + 6 |x[n] + - h| a[3] + 2 a[2]    
+f[n + r] = eval(F, x = h*r + x[n]);
+f[n + r] = 30 (h r + x[n])  a[6] + 20 (h r + x[n])  a[5]
+a[4] + 6 (h r + x[n]) a[3] + 2 a[2]
+f[n + 1] = eval(F, x = x[n] + h);   
+f[n + 1] = 30 (x[n] + h)  a[6] + 20 (x[n] + h)  a[5]  + 12 (x[n] + h)  a[4] + 6 (x[n] + h) a[3] + 2 a[2]
+x[n] := 0;
+x[n] := 0
+solve({f[n] = 30*a[6]*x[n]^4 + 20*a[5]*x[n]^3 + 12*a[4]*x[n]^2 + 6*a[3]*x[n] + 2*a[2], f[n + 1] = 30*(x[n] + h)^4*a[6] + 20*(x[n] + h)^3*a[5] + 12*(x[n] + h)^2*a[4] + 6*(x[n] + h)*a[3] + 2*a[2], f[n + 1/3] = 30*(x[n] + 1/3*h)^4*a[6] + 20*(x[n] + 1/3*h)^3*a[5] + 12*(x[n] + 1/3*h)^2*a[4] + 6*(x[n] + 1/3*h)*a[3] + 2*a[2], f[n + 2/3] = 30*(x[n] + 2/3*h)^4*a[6] + 20*(x[n] + 2/3*h)^3*a[5] + 12*(x[n] + 2/3*h)^2*a[4] + 6*(x[n] + 2/3*h)*a[3] + 2*a[2], f[n + r] = 30*(h*r + x[n])^4*a[6] + 20*(h*r + x[n])^3*a[5] + 12*(h*r + x[n])^2*a[4] + 6*(h*r + x[n])*a[3] + 2*a[2], y[n] = a[6]*x[n]^6 + a[5]*x[n]^5 + a[4]*x[n]^4 + a[3]*x[n]^3 + a[2]*x[n]^2 + a[1]*x[n] + a[0], yp[n] = 6*a[6]*x[n]^5 + 5*a[5]*x[n]^4 + 4*a[4]*x[n]^3 + 3*a[3]*x[n]^2 + 2*a[2]*x[n] + a[1]}, {a[0], a[1], a[2], a[3], a[4], a[5], a[6]});   
+|a[0] = y[n], a[1] = yp[n], a[2] = - f[n], a[3] = -    
+|99 r  f[n] - 18 r  f[n + 1]                   12 r \9 r  - 18 r  + 11 r - 2/ h- 162 r  f[n + -] + 81 r  f[n + -] - 180 r  f[n]+ 18 r  f[n + 1] + 270 r f[n + -] - 108 r  f[n + -]+ 85 r  f[n] - 4 r  f[n + 1] - 108 r  f[n + -]+ 27 r  f[n + -] - 4 f[n] + 4 f[n + r]|, a[4] = |162 r  f[n+ 85 r f[n] - 4 r f[n + 1] - 108 r f[n + -] + 27 r f[n + -]- 22 f[n] + 22 f[n + r]|, a[5] = - |9 |9 r  f[n] - 9 r  f[n + 1]                     
+- 27 r  f[n + -] + 27 r  f[n + -] - 25 r  f[n] + 7 r  f[n + 1]
++ 57 r  f[n + -] - 39 r  f[n + -] + 20 r f[n] - 2 r f[n + 1]
+- 30 r f[n + -] + 12 r f[n + -] - 4 f[n] + 4 f[n + r]||, a[6] = 
+ |3 |9 r  f[n] - 9 r  f[n + 1]
+20 h  r \9 r  - 18 r  + 11 r - 2/                              
+- 27 r  f[n + -] + 27 r  f[n + -] - 18 r  f[n] + 9 r  f[n + 1]
++ 45 r  f[n + -] - 36 r  f[n + -] + 11 r f[n] - 2 r f[n + 1]
+- 18 r f[n + -] + 9 r f[n + -] - 2 f[n] + 2 f[n + r]||| 
+a[0] := y[n];
+a[1] := yp[n];
+a[2] := f[n]/2;
+a[3] := -(99*r^4*f[n] - 18*r^4*f[n + 1] - 162*r^4*f[n + 1/3] + 81*r^4*f[n + 2/3] - 180*r^3*f[n] + 18*r^3*f[n + 1] + 270*r^3*f[n + 1/3] - 108*r^3*f[n + 2/3] + 85*r^2*f[n] - 4*r^2*f[n + 1] - 108*r^2*f[n + 1/3] + 27*r^2*f[n + 2/3] - 4*f[n] + 4*f[n + r])/(12*r*(9*r^3 - 18*r^2 + 11*r - 2)*h);
+a[4] := (162*r^4*f[n] - 81*r^4*f[n + 1] - 405*r^4*f[n + 1/3] + 324*r^4*f[n + 2/3] - 225*r^3*f[n] + 63*r^3*f[n + 1] + 513*r^3*f[n + 1/3] - 351*r^3*f[n + 2/3] + 85*r*f[n] - 4*r*f[n + 1] - 108*r*f[n + 1/3] + 27*r*f[n + 2/3] - 22*f[n] + 22*f[n + r])/(24*r*(9*r^3 - 18*r^2 + 11*r - 2)*h^2);
+a[5] := -9*(9*r^4*f[n] - 9*r^4*f[n + 1] - 27*r^4*f[n + 1/3] + 27*r^4*f[n + 2/3] - 25*r^2*f[n] + 7*r^2*f[n + 1] + 57*r^2*f[n + 1/3] - 39*r^2*f[n + 2/3] + 20*r*f[n] - 2*r*f[n + 1] - 30*r*f[n + 1/3] + 12*r*f[n + 2/3] - 4*f[n] + 4*f[n + r])/(40*r*(9*r^3 - 18*r^2 + 11*r - 2)*h^3);
+a[6] := 3*(9*r^3*f[n] - 9*r^3*f[n + 1] - 27*r^3*f[n + 1/3] + 27*r^3*f[n + 2/3] - 18*r^2*f[n] + 9*r^2*f[n + 1] + 45*r^2*f[n + 1/3] - 36*r^2*f[n + 2/3] + 11*r*f[n] - 2*r*f[n + 1] - 18*r*f[n + 1/3] + 9*r*f[n + 2/3] - 2*f[n] + 2*f[n + r])/(20*h^4*r*(9*r^3 - 18*r^2 + 11*r - 2));
+p := y[n + 1/3] - (((873*f[n] + 72*f[n + 1] + 1026*f[n + 1/3] - 351*f[n + 2/3])*h^2 + 9720*h*yp[n] + 29160*y[n])*r^4 + ((-1809*f[n] - 81*f[n + 1] - 1863*f[n + 1/3] + 513*f[n + 2/3])*h^2 - 19440*h*yp[n] - 58320*y[n])*r^3 + ((1193*f[n] + 25*f[n + 1] + 939*f[n + 1/3] - 177*f[n + 2/3])*h^2 + 11880*h*yp[n] + 35640*y[n])*r^2 + ((-271*f[n] - 2*f[n + 1] - 102*f[n + 1/3] + 15*f[n + 2/3])*h^2 - 2160*h*yp[n] - 6480*y[n])*r + 14*h^2*(f[n] - f[n + r]))/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r);
+simplify(series(y(x[n] + ((1/3) . h)) - (873*h^2*r^4 - 1809*h^2*r^3 + 1193*h^2*r^2 - 271*h^2*r + 14*h^2)*(D@@2)(y)(x[n])/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r) - (72*h^2*r^4 - 81*h^2*r^3 + 25*h^2*r^2 - 2*h^2*r)*(D@@2)(y)(x[n] + h)/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r) - (1026*h^2*r^4 - 1863*h^2*r^3 + 939*h^2*r^2 - 102*h^2*r)*(D@@2)(y)(x[n] + ((1/3) . h))/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r) - (-351*h^2*r^4 + 513*h^2*r^3 - 177*h^2*r^2 + 15*h^2*r)*(D@@2)(y)(x[n] + ((2/3) . h))/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r) + 14*h^2*(D@@2)(y)(h*r + x[n])/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r) - y(x[n]) - (9720*h*r^4 - 19440*h*r^3 + 11880*h*r^2 - 2160*h*r)*D(y)(x[n])/(29160*r^4 - 58320*r^3 + 35640*r^2 - 6480*r), h = 0, 8));+ y[n]
+collect(Y, {f[n], f[n + 1], f[n + r], f[n + 1/3], f[n + 2/3], y[n], yp[n]}, distributed);
+
+
+\end{verbatim}
+
+
+
+
+
+
+\end{document}
