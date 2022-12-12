@@ -1,0 +1,374 @@
+\documentclass[12pt]{report}
+
+\usepackage{geometry}
+\geometry{a4paper, total = {180mm,245mm}, left=11mm, top=25mm}
+
+%title package
+\usepackage{titlesec}
+\titleformat{\chapter}{\bfseries\centering\huge}{}{8pt}{}[]
+\titlespacing{\chapter}{0pt}{0pt}{10pt}
+
+\titleformat{\section}{\bfseries\large}{\thesection}{10pt}{}[]
+\titlespacing{\section}{0pt}{0pt}{5pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+
+\usepackage{xfrac}
+\usepackage{enumitem}
+\linespread{1.5}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\Large \textsc{a proposal}\\
+		[5mm]
+		\Large \textsc{on}\\
+		[5mm]
+		\Large \textsc{one-third step method for the solution of seond order initial value problems in ordinary differential equations}\\
+		[5mm]
+		\Large \textsc{by}\\
+		[5mm]
+		\Large \textsc{olufunmilayo, olushola timilehin \\ mts/16/0284}\\
+		[5mm]
+		\Large \textsc{supervised by}\\
+		\Large \textsc{dr. e. a. areo}\\
+		[5mm]
+		\Large \textsc{submitted to}\\
+		\Large \textsc{the department of mathematical sciences} \\ 
+		\Large \textsc{federal university of technology, akure, ondo state, nigeria}\\
+		[5mm]
+		\Large \textsc{in partial fufilment of the requirements for the award of bachelor of technology (b.tech) in industrial mathematics}\\
+		[12mm]
+	\end{center}
+	
+	\begin{flushright}
+		\large \textsc{7th December, 2022}
+	\end{flushright}
+
+\end{titlepage}
+
+\newpage
+\pagenumbering{roman}
+
+
+% CERTIFICATION
+    \chapter*{CERTIFICATION}
+\addcontentsline{toc}{chapter}{\numberline{}Certification}%
+\noindent This is to certify that this project was carried out by OLUFUNMILAYO Olushola Timilehin with the matriculation number MTS/16/0284 under the supervision of DR. E. A. AREO in partial fulfilment of the requirements for the award of Bachelor of Technology (B.tech) degree in Industrial Mathematics of The Federal University of Technology, Akure (FUTA). \\
+\\ \\
+
+\noindent........................................... \hspace{10.7cm}
+...........................
+
+Dr. E. A. Areo \hspace{13cm} Date
+
+\hspace{6mm}\textbf{Supervisor}\\
+[2cm] 
+
+\noindent........................................... \hspace{10.7cm}
+...........................
+
+Prof. B. T. Olabode \hspace{12.3cm} Date
+
+\noindent\hspace{4mm}\textbf{Head of Department}\\
+[2cm] 
+
+\noindent........................................... \hspace{10.7cm}
+...........................
+
+\textbf{External Examiner} \hspace{12.3cm} Date
+
+
+% DEDICATION
+
+\chapter*{DEDICATION}
+\addcontentsline{toc}{chapter}{\numberline{}Dedications}%
+\noindent This project is dedicated to God Almighty, and to my parents, Mrs. OLUFUNMILAYO.
+
+% AKNOWLEDGMENT
+\chapter*{ACKNOWLEDGEMENTS}
+\addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}%
+\noindent I give glory to my wonderful God who has made this journey a glorious one for me. Special thanks to my supervisor, Dr. E. A. Areo for his support, encouragement, patience and timely feedback during the running of this project. Also, I appreciate the effort of the Head of Department, Prof. B. T. Olabode and other lecturers in the Department of Mathematical Sciences, Federal University of Technology, Akure, Ondo State for their input throughout this B.Tech. programme. My appreciation goes to my ever loving parents Evangelist Tolani Olufunmilayo and Mrs. Olufunmilayo for their prayers and care. Also to my ever loving brothers, Hon Olamide Olufunmilayo, Mr Oluwaseyi Olufunmilayo and Mr Oluwadamilare Olufunmilayo for their financial support, words of encouragement, prayer and care. I appreciate all my friends that contributed to the success of this project. May the good lord continue to give you all, peace and everlasting blessings. 
+
+
+% ABSTRACT PAGE
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{\numberline{}Abstracts}%
+\noindent The hybrid block method will be adopted in this project for the direct solution of second order ordinary differential equations. This method will be derived by the collocation and interpolation of power series approximate solution to give a continuous hybrid linear multistep method which will be implemented in the block method to derive the independent solution at selected grid points. The properties of the to-be derived scheme will be investigated to test the zero-stability, consistency and convergence of the scheme. The efficiency of the derived method will also be tested and will be compared to the existing methods.
+%%% TABLE OF CONTENTS
+\tableofcontents
+
+%
+% BODY OF REPORT
+%
+\cleardoublepage
+\pagenumbering{arabic}
+% CHAPTER ONE
+\chapter[CHAPTER ONE: INTRODUCTION]{CHAPTER ONE}
+\begin{center}
+	\Large\textbf{INTRODUCTION}
+\end{center}
+\section{Background Information}
+\noindent We use numerical methods for ordinary differential equations as a way for solutions to obtain numerical approximations to the solution of ordinary differential equations (ODEs). The study of numerical methods for ordinary differential equations has given us solutions to a variety of difficulties that we face in our daily lives. Some mathematical models, for example, can be solved analytically, which necessitates the use of numerical methods to obtain approximate solutions. Furthermore, advanced numerical approaches are required in weather broadcasting to make reliable weather predictions. Finding analytical answers to weather problems appears to be unattainable due to the fact that it is governed by sophisticated and complicated mathematical equations. When making a forecast for tomorrow's weather, rather than finding an exact solution, we use an approximation, and the accuracy of the estimate is now determined by the type of approximation used. In addition, spacecraft firms demand that the trajectory of a spacecraft be determined using numerical solutions of a system of ordinary equations. Automobile manufacturers are also using numerical partial differential equations to improve the crash safety of their vehicles by using computer models that can be obtained numerically.
+
+\section{Differential Equations}
+\noindent A differential equation is one in which one or more unknown functions (or dependent variables) have derivatives with regard to one or more known functions (or independent variables). In a differential equation, the unknown function represents a physical quantity, the corresponding derivatives reflect the rate of change, and the complete equation illustrates the relationship between the two. The equation that expresses the functional dependency of one variable (dependent variable) on one or more other variables is called a differential equation (independent variables). Finally, the solution of a differential equation yields a general function that, given some specified constraints, may be used to anticipate the behavior of the original system.
+\subsection{Types of Differential Equations}
+Differential equations are classified into two (2), namely: Ordinary Differential Equation (ODE) and Partial Differential Equation (PDE)
+
+\subsubsection{Ordinary Differential Equations}
+		
+If the unknown function is dependent on only one independent variable, the differential equation is called an ordinary differential equation. That is, if a differential equation contains only ordinary derivatives, it is called an ODE (i.e. one dependent variable with respect to one independent variable). It takes the general form:
+\begin{equation}
+a_{0} (x)y+ a_{1} (x) y'+ a_{2} (x) y''+ a_{3} (x) y'''+...+ a_{n} (x) y^{n}=0
+\end{equation}
+Equation (1.1) can be written as 
+\begin{equation}
+F(x,y,y',y'',y''',...,y^{n})=0
+\end{equation}
+The following are examples of ordinary differential equations: 
+i. $	\frac{d^{2} y}{dx^{2} }+  \frac{dy}{dx}+3y=0$ 
+ii. $\frac{dy}{dx} = \frac{y^{2}}{1-xy} $  
+iii. $(\frac{d^{3} y}{dx^{3} })^{2} + \frac{d^{2} y}{dx^{2} } - 10\frac{dy}{dx} +8y = 0 $
+ 
+
+\subsubsection{Partial Differential Equation} 
+If the unknown function is dependent on two or more independent variables, the differential equation is called a partial differential equation. That is, a differential equation in which one or more dependent variables have derivatives with regard to many independent variables. In addition, a partial differential equation is one that only has partial derivatives. The wave, heat, and laplace equations are some examples of partial differential equations. \\
+\smallskip
+i. $\alpha^{2}\frac{\partial^{2}u(x,t)}{\partial x^{2}} =  \frac{\partial u(x,t)}{\partial t} $    [Heat Equation]
+ii. $\frac{\partial^{2}u(x,y)}{\partial x^{2}} + \frac{\partial^{2}u(x,t)}{\partial y^{2}} = 0 $   [Laplace Equation]  
+iii. $\alpha^{2}\frac{\partial^{2}u(x,t)}{\partial x^{2}} = \frac{\partial^{2}u(x,t)}{\partial t^{2}} $   [Wave Equation]
+
+	
+\subsection{Classification of Differential Equations} 
+Differential equations can be classified into order, degree, linearity and homogeneity. These classifications are explained respectively below.
+\subsubsection{Order} 
+This is the order of the highest derivative in a differential equation. The ordinary differential equation
+
+\begin{equation}
+ F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = 0
+\end{equation} is an ODE with order n. E.g. 
+\begin{equation}
+y^{\prime\prime} + 5y^{\prime\prime\prime} = \textit e^x
+\end{equation}  is a third order ODE.
+
+\subsubsection{Degree}
+This is the power of the highest derivative in a differential equation. \\ E.g. The ordinary differential equation
+
+\begin{equation}
+y^{\prime\prime} + 5y^{\prime\prime\prime} = \textit e^x  
+\end{equation}
+is of degree 1.
+	
+\subsubsection{Linearity} 
+An nth-order ordinary differential equation 
+\begin{equation}
+F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = 0
+\end{equation} is said to be linear if the function F is linear in $y, y^\prime, ... , y^n$. This means that an ODE of order n is linear when
+\begin{equation}
+F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x)  
+\end{equation}
+If $n = 1$, then
+\begin{equation}
+F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_1(x)y^\prime + a_0(x)y = g(x)
+\end{equation} Otherwise, it is non-linear.
+\subsubsection{Homogeneity}
+A differential equation is said to be homogeneous if the solution equals zero, else it is non-homogeneous, i.e. the ODE \medskip
+\begin{equation}
+F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x) 
+\end{equation}
+is homogeneous if g(x) = 0.
+	
+\subsection{Type of function}
+The differential equation is said to be of textbfexplicit function if the dependent variable is expressed solely in terms of the independent variable and constant. It is considered to be of textbfimplicit function if the dependent variable is also represented in terms of the dependent variable. E.g.
+$y = \frac{1}{x}$  is an explicit function; and $xy^\prime + y = 2$  is an implicit function
+	
+\subsection{Problems of a Differential Equation}\label{sec: Problems of ODE}
+This is classified according to the solution and structure of the equation,
+\subsubsection{Initial Value Problem (IVP)}
+A differential equation generally has many solutions. An initial value problem is one in which an additional data or condition of a particular solution of interest is specified. i.e. a differential equation.
+\begin{equation}
+F(x,y,y^\prime,y^{\prime\prime},\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} + \dots + a_1(x)y^\prime + a_0(x)y = g(x)  
+\end{equation}
+subject to
+\begin{center}
+	$y(x_0) = y_0$, $y'(x_0) = y_1$,…, $y_n(x_0) = y_n$
+\end{center}
+where $y_0, y_1, \dots , y_n$ are arbitrarily specified real constants, is called an initial value problem. E.g.
+\begin{eqnarray}
+y' =& 2y - 3x,\hspace{1mm} y(0) =& -3\\
+y'=& 4 - 12t,\hspace{1mm} y(0) =& -1, y'(0) = 2
+\end{eqnarray}
+\subsubsection{Boundary Value Problem (BVP)}
+A boundary value problem is one with solution specified at more than one point i.e. a differential equation\\
+\begin{equation}
+F(x,y,y',y'',\dots,y^n ) = a_n(x)y_n + a_{n-1}(x)y_{n-1} +\dots+ a_1(x)y^\prime + a_0(x)y = g(x)
+\end{equation}  subject to
+$y(x_0) = y_0$, $y(x_1) = y_1$, $y'(x_0) = y'_0$, $y'(x_1) = y'_1$,…, $y^n(x_0) = {y^n}_0$, $y^n(x_1) = {y^n}_1$. 
+where $y_0$, $y_1$, $y^\prime_0$, $y^\prime_1$, ..., ${y^n}_0$, ${y^n}_1$ are arbitrarily specified real constants, is called a boundary value problem. The independent variable chosen is usually the extreme value of its interval. E.g.
+\begin{eqnarray}
+y' =& 2y -3x,& y(0) = -3,\hspace{1mm} y(2) = 10,\hspace{1mm} 0\leq x\leq 2\\
+y'' =& 4 - 12t,& y(0) = -1,\hspace{1mm} y(1) =2,\hspace{1mm} y'(0) = 2,\hspace{1mm} y'(1) = 4,\hspace{1mm} 0\leq x\leq 1
+\end{eqnarray}
+\subsection{Solution of Differential Equation}
+A differential equation (DE) solution might be either specific or universal. A generic solution is one that contains an arbitrary solution constant that is dependent on the DE order. It's a group of all unique solutions. If information from an I.V.P or B.V.P (see page \pageref{sec: Problems of ODE}) is provided to solve the arbitrary constant of solution, a specific solution is obtained. The following methods can be used to find the solution to a DE.
+\subsubsection{Analytical Methods}
+These methods entail utilizing mathematics to solve differential equations. They differ depending on the DE's order. Although not all DEs can be solved using these approaches, analytical methods do not follow any algorithm and provide exact answers to DEs using exact theorems to present equations that can be used to present numerical solutions without the usage of numerical methods. Separation of variables, appropriate solution, Laplace transforms, order reduction, parameter variation, power series, integration factor, and so on are some of these methods.
+\subsubsection{Numerical Methods}
+Numerical methods, unlike analytic approaches, use algorithms to produce approximate solutions. Numerical integration is another name for them. Although many DEs arising from models of real-world situations in other topic areas may be solved using analytical methods, many others cannot, necessitating the use of numerical approaches to provide approximate answers. The following are a few examples of these techniques:
+\begin{itemize}
+	\item Single step methods-  Picard's method of successive approximation,Taylor's series method
+	\item Multi-step methods- Euler's method, modified Euler method Runge-Kutta method, Adams-Bashforth method
+\end{itemize}
+
+\section{Basic Concept and Principles}
+\subsection{Power Series}
+Power Series is an infinite series of the form
+\begin{equation}
+\sum_{j=0}^{\infty}a_jx^j=a_0+a_1(x-x_0)+a_2(x-x_0)^2+a_3(x-x_0)^3+\dots
+\end{equation}
+\noindent Where 
+$x$ is a variable, the centre of the series, $x_0$ is a constant; and the coefficients of the series, $a_j$, are constants. In this context, we assume $x_0=0$, then the series takes the form;
+\begin{equation}
+Y=a_0+a_1x+a_2x^2+a_3x^3+\dots
+\end{equation}
+\subsection{Taylor's Theorem}
+The Taylor series of a real-vaalued function $f(x)$ is an infinite series of its derivatives about a single point $x_0$, such that
+\begin{equation}
+f(x)  = \sum_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n = f(x_0)+\frac{f'(x_0)}{1!}(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2 + \frac{f'''(x_0)}{3!}(x-x_0)^3 + \dots
+\end{equation}
+Suppose the functin f(x) is a polynomial of degree k, then the Taylor polynomial of degree k is given as 
+\begin{equation}
+f(x)  = \sum_{n=0}^{k}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n = f(x_0)+\frac{f'(x_0)}{1!}(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2 + \frac{f'''(x_0)}{3!}(x-x_0)^3 + \dots
+\end{equation}
+
+\noindent Let function f(x) be differentiable $k+1$ times on an open interval containing $x_0$, then for every x in the interval, n
+\begin{equation}
+f(x)=\sum_{n=0}^{k}\left[\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\right]+P_{k+1}(x) 
+\end{equation}  
+\noindent where the error term \begin{equation}
+P_{k+1}(x)=\frac{f^{k+1}(c)}{(k+1)!}(x-x_0)^{k+1}
+\end{equation}
+\noindent for some c between x and $x_0$. This is known as \textit{Taylor's Theorem}.
+	
+	
+\subsection{Linear Multi-step Method}
+A linear multi-step method is a computational method used to determine the numerical solution of IVP ODEs (see page \pageref{sec: Problems of ODE}). It forms a linear relation between $y_{n+j}$ and $f_{n+j}$, $j = 0[1]k$ using more than one points, $x_i,x_{i+1}, x_{i+2}, \dots, x_{i+n}$ to predict a solution $y_{i+1}$. The general formular is given as 
+
+\begin{equation}
+y(x) = \sum_{j=0}^{k}\alpha_jy_{n+j}+h^n\sum_{j=0}^{k}\beta_jf_{n+j}(x)
+\end{equation}
+	
+\noindent where
+y(x) is the numerical solution of the IVP, n is the order of ODE; and constants $\alpha \neq 0$ and $\beta \neq 0$ $$f_{n+j} = f(x_{n+j}, y_{n+j}, y'_{n+j}, \dots, {y_{n+j}}^{n-1}), \hspace{5mm} j=0{1}k$$
+\medskip
+\noindent A linear multi-syep method is said to be implicit if $\beta\neq0$, else it is explicit.
+	
+\subsection{Characteristic Polynomial}
+A characteristic polynomial is defined by
+\begin{equation}
+\prod_{}^{}(r,h)=\rho(r)-h\sigma(r)
+\end{equation}
+
+	\noindent Where
+$\rho(r) = \sum_{j=0}^{k} \alpha$, and  $\sigma(r) = \sum_{j=0}^{k} \beta$ are the first and second characteristic polynomials, respectively.
+
+\subsection{Zero Stability}
+If a minor change in the initial conditions creates a small change in the solution, the numerical scheme is stable. Numerical approaches for solving ODEs are susceptible to truncation errors at each step, necessitating the need to verify that the solution does not diverge over time. If the first polynomials are characteristic polynomials, $\alpha\leq1.$ 
+
+\subsection{Interpolation}
+In the sciences and engineering, we often get a number of data points by sampling or experimenting with function values for a restricted number of independent variables. The technique of estimating the value of the function for an intermediate value of the independent variable is known as \textsl{Interpolation}. In other words, interpolation is the process of creating new data points from a set of discrete data points.
+\subsection{Collocation}
+This method for solving differential equations entails selecting a finite-dimensional space of a basis function, as well as a set of points in the domain (collocation points), and then selecting the solution that satisfies the given DE at the collocation points.
+
+\section*{Aim and Objective}
+\noindent The aim of this study is to develop a one-third step method for the direct solution of second order initial value problems in ordinary differential equations. To achieve this, the following objectives was outlined:
+\begin{enumerate}
+\item develop a continuos scheme that gives solution to second order ordinary differential equations.
+\item  derive discrete scheme from the continuos scheme.
+\item analyze the basic properties of the methods which includes consistency, zero stability and convergence.
+\item  implement the derived method in block method and
+\item  ascertain the usability of the method.
+\end{enumerate}
+
+% CHAPTER TWO
+\chapter[CHAPTER TWO: LITERATURE REVIEW]{CHAPTER TWO}
+\begin{center}
+	\Large\textbf{LITERATURE REVIEW}
+\end{center}
+\noindent Over the years, numerical analysis researchers have focused on the numerical solution of differential equations. Many numerical techniques have been developed to tackle various differential equations issues. Numerical methods capable of solving differential equations must be developed since most differential equations emerging from issues in engineering, physical sciences, managerial sciences, and other fields lack analytical solutions, necessitating the development of numerical methods. The following are some of the research projects undertaken by researchers in this discipline.
+\noindent Awoyemi et al.\cite{Awoyemi} established the existence and uniqueness theorem (1). Scholars have discussed methods for reducing higher order ordinary differential equations to first order ordinary differential equation systems in order to increase the dimension of the resulting equation by the order of the differential equations, which invariably requires more human and computer effort. The method of reduction, according to Vigo-Aguiar and Ramos \cite{Vigo-Aguiar} does not make use of extra information associated with certain ordinary differential equations, such as the oscillatory nature of the solution. Another shortcoming of the reduction approach, according to Bun and Vasil'Yev \cite{Areo} is that the resulting system of first order equations cannot be solved directly with respect to the highest order derivatives. To summarize, the reduction process is inefficient and unstable for general use.
+\noindent Scholars have proposed a continuous linear multistep approach for the direct solution of higher order ordinary differential equations. Awoyemi \cite{Bun}, Kayode and Adeyeye \cite{Awoyem}, Adesanya et al. \cite{Areo}, Adee et al. \cite{fateme}, Yusuf and Onumanyi [8] provided an implicit continuous linear multistep technique that was implemented in predictor corrector mode and used Taylor series approximation for the beginning values. This strategy was shown to be expensive to apply, and the produced predictors are in decreasing order of accuracy, which has a negative impact on the outcomes.
+\noindent Areo and Rufai (2016) developed a new fourth order continuous one-third hybrid block method for solving generic second order initial value problems of ordinary diiferential equations using a collocation and interpolation strategy. From the continuos schemes, three separate schemes were created. Based on the properties of linear multi-step methods, the discrete approach was examined, and the step was found to be zero-stable, consistent, and convergent. By solving four numerical instances, the new technique outperformed existing methods in the literature, and the approximate answers produced confirmed the superiority of the new developed schme when compared to some of the most recent current approaches.
+\noindent To directly estimate the solution of the second order differential equation, Kayode (2011) developed a class of one-point numerical hybrid methods characterized by better degree of accuracy. Furthermore, the key predictor for evaluating implicit methods at whatever hybrid sites of collocation was discovered to have the same order as the methods at whatever hybrid points of collocation. The approaches, along with their accompanying predictors, were found to be zero-stable, consistent, and convergent, and both were utilized to solve numerical examples to demonstrate their accuracy \cite{Kayode}.
+\noindent Scholars have developed a block strategy for solving beginning value problems that is more cost effective and does not require starting values. For the solution of two point boundary value problems, Jator and Li \cite{Adesanya} introduced a family of linear multistep algorithms based on collocation and interpolation of power series approximation solutions. To solve the second order initial value problem, Adesanya et al.\cite{Adee} presented a block technique based on interpolation and collocation. This method provides a more accurate approximation and is less expensive.
+\noindent For direct solution of general third order differential equations, Obarhua and Kayode (2016) developed hybrid linear multistep approaches. The derivation of the scheme employing a mix of power series and exponential function as the basis function was done using interpolation and collocation techniques in this work. It was determined that the developed approach was zero-stable, consistent, and convergent \cite{obarhua}.
+
+% CHAPTER THREE
+
+\chapter[CHAPTER THREE: METHODOLOGY]{CHAPTER THREE}
+\begin{center}
+	\Large\textbf{METHODOLOGY}
+\end{center}
+\section{Derivation of Scheme}
+In this paper, we propose that a hybrid block method is implemented as a simultaneous integrator for the solution of general second order ordinary differential equations. We consider approximate techniques for the solution of second order initial value problems of the form
+\begin{equation}
+y'¢¢ = f (x, y, y'¢), y(a) = ya , y'¢(a) = y'a¢ ,						 		
+\end{equation}
+where a is the initial point, ya and y'a are the solutions at the initial point a, f is assumed to be continuous within the interval of integration and satisfies the existence and uniqueness conditions. I propose an approximate solution to (3.1) in the form
+\begin{equation}
+y(x) = \sum_{j=0}^{r+s-1}a_{j}x^{j}								
+\end{equation}
+where r and s are the number of interpolation and collocation points, respectively, a¢j ’s are constant parameters to be determined, x is the polynomial basis function of degree j.
+Substituting the second derivative of (3.2) into (3.1) gives
+
+\thebibliography{}
+\addcontentsline{toc}{chapter}{References}
+\bibitem{Adee}Ade S. O., Onumanyi P., Serisena U. W. and Yahaya Y. A., Note on starting the Numerov’s method more accurately by a hybrid formula of order four for initial value problems, J. Comput. Appl. Math. 175 (2005), 369-373.
+
+\bibitem{Adesanya}Adesanya A. O., Anake T. A., and Oghonyon G. J., Continuous implicit method for the solution of general second ordinary differential equations, J. Nig. Assoc. Math. Phy. 15 (2009), 71-78.
+
+\bibitem{Adesanya2} Adesanya A. O., Odekunle M. R., and Udo M. O., Four steps continuous method for the solution of y¢¢ = f (x, y, y¢), Amer. J. Comput. Math. 3 (2013), 169-174.
+
+\bibitem{Anake} Anake T. A., Awoyemi D. O., and Adesanya A. O., One-step implicit hybrid block method for the direct solution of general second order ordinary differential equations, IAENG Intern. J. Appl. Math. 42(4) (2012), 224-228.
+
+\bibitem{Areo}Areo E. A., and Rufai M. A. A., (2016). A new uniform fourth order one-third step continuous block method for the direct solutions of ordinary differential equations. \textit{British Journal of Mathematics and Computer Science}, Vol. 15(4) 1-12.
+
+\bibitem{ascher}Ascher U. M., Matheij R., and Russell R. D., (1995). Numerical solution of boundary value problems for ordinary differential equations, SIAM, Philadelphia.
+
+\bibitem{Awoyemi}Awoyemi D. O. , Adebile E. A., Adesanya A. O. and Anake T. A., Modified block method for the direct solution of second order ordinary differential equations, Intern. J. Appl. Math. Comput. 3(3) (2011), 181-188.
+
+\bibitem{Awoyem}Awoyemi D. O., Algorithmic collocation approach for direct solution of fourth-order initial value problems of ordinary differential equations, Intern. J. Comp. Math. 82(3) (2005), 321-329.
+
+\bibitem{Bun}Bun R. A.  and Vasil’Yev Y. D., A numerical method method for solving differential
+equations of any order, Comp. Math. Phys. 32(3) (1992), 317-330.
+
+\bibitem{fateme}Fateme G., and Stanford S., (2019). A new approach for solving Bratu’s problem. \textit{Demonstratio Mathematica}, Vol. 52, pp. 336-346.
+
+\bibitem{Jator}Jator S. N., and Li J., A self starting linear multistep method for a direct solution of general second order initial value problems, Intern. J. Comp. Math. 86(5) (2009) 817-836.
+
+\bibitem{Kayode}Kayode S. J., and Adeyeye A. O., A 3-step hybrid method for the direct solution of second order initial value problems, Austral. J. Basic Appl. Sci. 5(12) (2011), 2121-2126.
+
+\bibitem{obarhua}Obarhua F. O., and Kayode S. J., (2016). Symmetric hybrid linear multistep method for solving general third order differential equations. \textit{Open Access Library Journal}, Vol. 3, No. 2583.
+
+\bibitem{Vigo-Aguiar}Vigo-Aguiar J., and Ramos H., Variable stepsize implementation of multistep methods for y¢¢ = f (x, y, y¢), J. Comput. Appl. Math. 192 (2006), 114-131.
+
+\bibitem{Yusuf} Yusuf Y., and Onumanyi P., New multiple FDMs through multistep collocation for y¢¢ = f (x, y), Proceeding of Conference Organised by the National Mathematics Center, Abuja, Nigeria, 2005.
+
+
+
+\end{document}

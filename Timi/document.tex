@@ -37,14 +37,14 @@
 		[5mm]
 		\Large \textsc{on}\\
 		[5mm]
-		\Large \textsc{one-third step method for the direct solution of seond order initial value problems in ordinary differential equations}\\
+		\Large \textsc{one-third step method for the solution of seond order initial value problems in ordinary differential equations}\\
 		[5mm]
 		\Large \textsc{by}\\
 		[5mm]
 		\Large \textsc{olufunmilayo, olushola timilehin \\ mts/16/4212}\\
 		[5mm]
 		\Large \textsc{supervised by}\\
-		\Large \textsc{dr. e. a. areo}\\
+		\Large \textsc{Prof. E. A. Areo}\\
 		[5mm]
 		\Large \textsc{submitted to}\\
 		\Large \textsc{the department of mathematical sciences} \\ 
@@ -107,7 +107,7 @@ Prof. B. T. Olabode \hspace{12.3cm} Date
 
 \chapter*{ABSTRACT}
 \addcontentsline{toc}{chapter}{\numberline{}Abstracts}%
-\noindent The hybrid block method will be adopted in this project for the direct solution of second order ordinary differential equations. This method will be derived by the collocation and interpolation of power series approximate solution to give a continuous hybrid linear multistep method which will be implemented in the block method to derive the independent solution at selected grid points. The properties of the to-be derived scheme will be investigated to test the zero-stability, consistency and convergence of the scheme. The efficiency of the derived method will also be tested and will be compared to the existing methods.
+\noindent The hybrid block method will be adopted in this project for the solution of second order ordinary differential equations. This method will be derived by the collocation and interpolation of power series approximate solution to give a continuous hybrid linear multistep method which will be implemented in the block method to derive the independent solution at selected grid points. The properties of the to-be derived scheme will be investigated to test the zero-stability, consistency and convergence of the scheme. The efficiency of the derived method will also be tested and will be compared to the existing methods.
 %%% TABLE OF CONTENTS
 \tableofcontents
 
@@ -327,7 +327,7 @@ Multi-step methods- Euler's method, modified Euler method Runge-Kutta method, Ad
 	This methood used to solve differential equations involves choosing a finite-dimensional space of a basis funnction, and a number of points in the domain (collocation pooints), and to select the solution that satisfies the given DE at the collocation points.
 
 \section*{Aim and Objective}
-	The aim of this study is to develop a numerical scheme for the solution of a 3-step hybrid block method for direct solution of second order ordinary differential equations. To achieve this, the following objectives was outlined:
+	The aim of this study is to develop a numerical scheme for the solution of a hybrid block method for the solution of second order ordinary differential equations. To achieve this, the following objectives was outlined:
 	\begin{enumerate}
 		\item develop a continuos scheme that gives solution to second order ordinary differential equations.
 		\item  derive discrete scheme from the continuos scheme.
@@ -343,7 +343,7 @@ Multi-step methods- Euler's method, modified Euler method Runge-Kutta method, Ad
  \noindent Awoyemi et al. [1] had given the theorem for the existence and uniqueness of (1). Scholars have discussed method of reduction of higher order ordinary differential equations to systems of first order ordinary differential equation to increase the dimension of resulting equation by the order of the differential equations, this invariably involves more human and computer efforts, Vigo-Aguiar and Ramos [2] reported that the method of reduction does not utilize additional information associated with specific ordinary differential equations such as the oscillatory nature of the solution. Bun and Vasil’Yev [3] also reported that another disadvantage of method of reduction is the fact that resulting system of first order equation can not be solved explicitly with respect to the derivatives of the highest order. Conclusively, method of reduction is not efficient and unstable for general purpose.
 \noindent Continuous linear multistep method for the direct solution of higher order ordinary differential equations has been proposed by scholars. Awoyemi [4], Kayode and Adeyeye [5], Adesanya et al. [6], Adee et al. [7], Yusuf and Onumanyi [8] proposed implicit continuous linear mutistep method which was implemented in predictor corrector mode, using Taylor series approximation to supply the starting values. This method was found to be costly to implement and the derived predictors are in reducing order of accuracy, which has an adverse effect on the results generated.
 \noindent Areo and Rufai (2016) applied the approach of collocation and interpolation to develop a new fourth order continuous one-third hybrid block method for the solutions of general second order initial value problems of ordinary diiferential equations. Three discrete schemes were derived from the continuos schemes. The discrete method was analyzed based on the properties of linear multi-step methods and the step is found to be zero-stable, consistent and convergent.There is an improved performances of the new method over the existing methods in the literature by solving four numerical examples and the approximate solutions obtained confirmed the superiority of the new developed schme when compared with some latest existing approaches.
-\noindent Kayode (2011) derived a class of one-point numerical hybrid methods characterized by higher order of accuracy to directly approximate the solution of the second order differential equation. In addition, the main predictor needed for the evaluation of the implicit methods at whatever hybrid points of collocation was discovered to be the same order with those of the methods at whatever hybrid point of collocation. It was found that the methods together with their corresponding predictors are zero-stable, consistent and convergent, and both are used to solve numerical examples to show their level of accuracy \cite{kayode}.
+\noindent Kayode (2011) derived a class of one-point numerical hybrid methods characterized by higher order of accuracy to directly approximate the solution of the second order differential equation. In addition, the main predictor needed for the evaluation of the implicit methods at whatever hybrid points of collocation was discovered to be the same order with those of the methods at whatever hybrid point of collocation. It was found that the methods together with their corresponding predictors are zero-stable, consistent and convergent, and both are used to solve numerical examples to show their level of accuracy %\cite{kayode}.
 \noindent Block method which is more cost effective and does not require starting values has been proposed by scholars for the solution of initial value problems. Jator and Li [9] proposed a family of linear multistep method using methods of collocation and interpolation of power series approximate solution for the solution of two point boundary value problems. Adesanya et al. [10] proposed a block method through interpolation and collocation to solve second order initial value problem. This method gives better approximation and is cost effective.
 \noindent Obarhua and Kayode (2016) developed hybrid linear multistep methods for direct solution of general third order differential equations. In this study, the techniques of interpolation and collocation were used for the derivation of the scheme using the combination of power series and exponential function as the basis function. The derived method was examined to be zero-stable, consistent and convergent \cite{obarhua}.
 

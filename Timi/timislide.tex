@@ -11,7 +11,7 @@
 
 \author{\textsc{OLUFUNMILAYO, olushola timilehin \\ mts/16/0284\\Supervisor\\dr. e. a. areo}}
 
-\date{\today}
+\date{14th December, 2022}
 \begin{document}
 %	\begin{frame}
 %		\titlepage
@@ -52,10 +52,10 @@ We use numerical methods for ordinary differential equations as a way for soluti
 \begin{frame}{Aim and Objective}
 \noindent The aim of this study is to develop a one-third step method for the direct solution of second order initial value problems in ordinary differential equations. To achieve this, the following objectives was outlined:
 \begin{enumerate}
-	\item develop a continuos scheme that gives solution to second order ordinary differential equations.
-	\item  derive discrete scheme from the continuos scheme.
-	\item analyze the basic properties of the methods which includes consistency, zero stability and convergence.
-	\item  implement the derived method in block method and
+	\item develop a continuos scheme that gives solution to second order ordinary differential equations;
+	\item  derive discrete scheme from the continuos scheme;
+	\item analyze the basic properties of the methods which includes consistency, zero stability and convergence;
+	\item  implement the derived method in block method; and
 	\item  ascertain the usability of the method.
 \end{enumerate}
 \end{frame}
@@ -80,29 +80,113 @@ We use numerical methods for ordinary differential equations as a way for soluti
 	y(x) = \sum_{j=0}^{r+s-1}a_{j}x^{j}								
 	\end{equation}
 	where r and s are the number of interpolation and collocation points, respectively, a¢j ’s are constant parameters to be determined, x is the polynomial basis function of degree j.
-%	\begin{center}
-%\begin{enumerate}
-%	\item Present the proposed model/modified model or the proposed research
-%	\item Method(s)/Technique(s) of solutions
-%	\item Development of the method(s)/solution(s)
-%\end{enumerate}	\end{center}
 \end{frame}
 
-%	\begin{frame}
-%	\frametitle{\textbf{RESULTS AND DISCUSSIONS}}
-%	\color{blue}
-%	\begin{center}
-%	Present and discuss your results/findings here.
-%	\end{center}
-%\end{frame}
-%
-%	\begin{frame}
-%	\frametitle{\textbf{CONCLUSION AND RECOMMENDATION}}
-%	\color{blue}
-%	\begin{center}
-%The conclusion should be based on the findings/results of the research. Necessary recommendation(s) should be made based on the findings/results	
-%	\end{center}
-%\end{frame}
+
+
+\begin{frame}{Scheme Specification}
+\noindent The diagram illustrates the formulated method, which includes the suggested point of collocation and interpolation based on their respective grid points and off-grid points.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{"main scheme"}
+	\caption{Scheme Specification}
+	\label{fig:main-scheme}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\noindent where I is the interpolation point and C is the collocation point with E representing the evaluation point.
+	The following system of equation was obtained for collocation and  interpolation equation;\\
+	\noindent The collocation equation is given as:
+	
+	\begin{equation}
+	\sum_{j=0}^{(n+s)-1} j(j-1)a_{j}x_{n+i}^{j-2}= f_{m+n}
+	\end{equation}
+	The interpolation equation is given as:
+	\begin{equation}
+	\sum_{j=0}^{(n+s)-1} a_{j}x_{m+s}^{j}= f_{m+s}
+	\end{equation}
+\end{frame}
+
+\begin{frame}{Gaussian Elimination}
+\noindent From the collocaton and the interpolation equations, a system of equation can be written
+
+\begin{center}
+	$AX = B$
+\end{center}
+
+$\begin{bmatrix}
+1 & x_{n+\frac{1}{3}} & x^{2}_{n+\frac{1}{3}} &  x^{3}_{n+\frac{1}{3}} & x^{4}_{n+\frac{1}{3}}& x^{5}_{n+\frac{1}{3}}\\
+1 & x_{n+\frac{2}{3}} & x^{2}_{n+\frac{2}{3}} &  x^{3}_{n+\frac{2}{3}} & x^{4}_{n+\frac{2}{3}} & x^{5}_{n+\frac{2}{3}} \\
+0&0 & 2 & 6x_n &  12x^2_{n} & 20x^{3}_{n} \\
+0&0 & 2 & 6x_{n+\frac{1}{3}} &  12x^2_{n+\frac{1}{3}} & 20x^{3}_{n+\frac{1}{3}} \\
+0&0 & 2 & 6x_{n+\frac{2}{3}} &  12x^2_{n+\frac{2}{3}} & 20x^{3}_{n+\frac{2}{3}} \\
+0 & 0&2 & 6x_{n+1} &  12x_{n+1} & 20x^{2}_{n+1} 
+\end{bmatrix}$
+$\begin{bmatrix} a_{0}\\ a_{1} \\ a_{2} \\ a_{3}\\ a_{4}\\ a_{5}\\  \end{bmatrix}$
+=$\begin{bmatrix} y_{n+\frac{1}{3}}\\ y_{n+\frac{2}{3}} \\ f_{n}\\ f_{n+\frac{1}{3}}\\ f_{n+\frac{2}{3}}\\ f_{n+1}
+\end{bmatrix}$\\
+
+\noindent The gaussian elimination method shall be adopted to obtain the results
+
+\end{frame}
+
+\begin{frame}
+	Note that;
+	$$x_{n+1}=x_n+ih$$
+	setting $x_n=0$
+	$$x_{n+\frac{1}{3}}=x_n +\frac{1}{3}h$$
+	$$x_{n+\frac{2}{3}}=x_n +\frac{2}{3}h$$
+	$$x_{n+1}=x_n +h$$
+	
+\end{frame}
+
+\begin{frame}
+	
+	$$a_0=\frac{1}{108}h^2f_n+\frac{5}{54}h^2f_{n+\frac{1}{3}}+\frac{1}{108}h^2f_{n+\frac{2}{3}}+2y_{n+\frac{1}{3}}-y_{n+\frac{2}{3}}$$
+	
+	$$a_1 = \frac{-1}{1080h}\left(127h^2f_n+8h^2f_{n+1}+414h^2f_{n+\frac{1}{3}}-9h^2f_{n+\frac{2}{3}}+3240y_{n+\frac{1}{3}}-3240y_{n+\frac{2}{3}}\right)$$
+	
+	$$a_2 = \frac{f_n}{2}$$
+	
+	$$a_3 = \frac{-1}{12h}\left(11f_n-2f_{n+1}-18f_{n+\frac{1}{3}}+9f_{n+\frac{2}{3}}\right)$$
+	
+	$$a_4 = \frac{3}{8h^2}\left(2f_n-f_{n+1}-5f_{n+\frac{1}{3}}+4f_{n+\frac{2}{3}}\right)$$
+	
+	
+	$$a_5 = \frac{-9}{40h^3}\left(f_n-f_{n+1}-3f_{n+\frac{1}{3}}+3f_{n+\frac{2}{3}}\right)$$
+\end{frame}
+
+\begin{frame}
+	\noindent Resolving the equation, we obtain the continuous scheme
+	$$y_{{n+1}}=\frac {13}{120}{h}^{2}f_{{n}}+\frac{1}{60} {{h}^{2}f_{{n+1}}}+\frac{3}{10}h^{2}f_{{n+\frac{1}{3}}}+\frac{3}{40}h^2f_{{n+\frac{2}{3}}}+y_{{
+			n}}+{\it y'}_{{n}}h$$
+	
+	$$y_{{n+\frac{1}{3}}}={\frac{97\,{h}^{2}f_{{n}}}{3240}}+{\frac{{h}^{2}f_{{n+1}}}{405}}+{\frac{19\,{h}^{2}f_{{n+\frac{1}{3}}}}{540}}-{\frac{13\,{h}^{2}f_{{n+\frac{2}{3}}}}{1080}}+\frac{1}{3}{\it y'}_{{n}}h+y_{{n}}$$
+	
+	$$y_{{n+\frac{2}{3}}}={\frac{28\,{h}^{2}f_{{n}}}{405}}+{\frac{22\,{h}^{2}f_{{n+\frac{1}{3}}}}{135}}-{\frac{2\,{h}^{2}f_{{n+\frac{2}{3}}}}{135}}+y_{{n}}+{\frac{2\,{h}^{2}f_{{n+1}}}{405}}+\frac{2}{3}\,{\it y'}_{{n}}h$$
+	
+	$${\it y'}_{{n+1}}=\frac{1}{8}\,hf_{{n}}+\frac{1}{8}\,hf_{{n+1}}+\frac{3}{8}\,hf_{{n+\frac{1}{3}}}+\frac{3}{8}\,hf_{{n+\frac{2}{3}}}+{\it y'}_{{n}}$$
+	
+	$${\it y'}_{{n+\frac{1}{3}}}=\frac{1}{8}\,hf_{{n}}+{\frac{hf_{{n+1}}}{72}}+{\frac{19\,hf_{{n+\frac{1}{3}}}}{72}}-{\frac {5\,hf_{{n+\frac{2}{3}}}}{72}}+{\it y'}_{{n}}$$
+	
+	$${\it y'}_{{n+\frac{2}{3}}}=\frac{1}{9}\,hf_{{n}}+\frac{4}{9}\,hf_{{n+\frac{1}{3}}}+\frac{1}{9}\,hf_{{n+\frac{2}{3}}}+{\it y'}_{{n}}$$
+\end{frame}
+
+
+\begin{frame}{Result Analysis}
+	\noindent The analysis of this scheme is to establish the validity based on finding the basic properties of the scheme. These properties include;
+	\begin{enumerate}
+		\item Order
+		\item Consistency
+		\item Zero stability
+		\item Convergence
+		\item Region of absolute stability
+	\end{enumerate}
+	
+\end{frame}
 
 
 \thebibliography{}
